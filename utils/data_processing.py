@@ -14,7 +14,7 @@ def get_emb(dict_char, line, max_seq_len):
     """ Crate embdding for target from dictionary
     """
     # Padding label
-    line_pad = ['|'] * max_seq_len
+    line_pad = [' '] * max_seq_len
     pad = (max_seq_len - len(line)) // 2
     line_pad[pad:(pad + len(line))] = line[:]
     label = []
@@ -33,7 +33,7 @@ def subsequent_mask(size):
     return torch.from_numpy(subsequent_mask) == 0
 
 
-def mask(target, pad=0):
+def create_mask(target, pad=79):
     """ Get mask for target
     """
     target_mask = (target != pad).unsqueeze(1)
@@ -60,8 +60,3 @@ def pad(img, expected_size):
     pad_size = (expected_size - w) // 2
     padding[:, pad_size:(pad_size + w), :] = img[:, :, :]
     return padding
-
-
-# --------------------------------------------------------------------------------
-#       Classes
-# --------------------------------------------------------------------------------

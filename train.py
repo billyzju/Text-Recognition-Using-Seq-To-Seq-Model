@@ -13,6 +13,9 @@ import torch.nn.functional as F
 from utils.main_model import MainModel
 from utils.data_loader import IAMDataLoader
 import matplotlib.pyplot as plt
+from utils.data_processing import create_mask
+from utils.metrics import translate, accuracy_char
+from utils.logger import Logger
 
 
 # --------------------------------------------------------------------------------
@@ -69,6 +72,9 @@ for p in model.parameters():
 optimizer = torch.optim.Adam(model.parameters(),
                              lr=lr, betas=(0.9, 0.98), eps=1e-9)
 
+# Logger
+train_logger = Logger("logs")
+
 # Path to data train
 path_p_lines = os.path.join(path_preprocessing_data, path_label_lines)
 full_path_images = os.path.join(path_preprocessing_data, "path_images.txt")
@@ -89,12 +95,12 @@ def train_model(epochs):
     print("Dataloader for train ----------------------------------")
     train_dataloader = IAMDataLoader(batch_size, True, lines_train,
                                      path_images_train, path_dict_char,
-                                     100, 3000)
+                                     100, None)
 
     print("Dataloader for valid ----------------------------------")
     valid_dataloader = IAMDataLoader(batch_size, True, lines_valid,
                                      path_images_valid, path_dict_char,
-                                     100, 3000)
+                                     100, None)
 
     if train_dataloader is not None:
         train_dataloader = train_dataloader.loader()
@@ -104,19 +110,21 @@ def train_model(epochs):
     # Train
     for epoch in range(epochs):
         total_loss = 0
+        total_acc_char = 0
         for batch_idx, (data, target) in enumerate(train_dataloader):
 
             data = data.cuda()
+            index_target = target.cuda()
 
             # img = data[0].cpu()
             # img = torchvision.transforms.functional.to_pil_image(img)
             # plt.imshow(img)
             # plt.show()
 
-            index_target = target.cuda()
-
             # The words used to train model
             input_target = index_target[:, :-1]
+            # Create mask for input target
+            target_mask = create_mask(input_target)
 
             # The words we want model try to predict
             predict_target = index_target[:, 1:].contiguous().view(-1)
@@ -125,19 +133,34 @@ def train_model(epochs):
             optimizer.zero_grad()
 
             # Output
-            output = model(data, input_target, src_mask=None, trg_mask=None)
-            # translate(output, predict_target, path_dict_char)
+            output = model(data, input_target, src_mask=None,
+                           trg_mask=target_mask)
+            translate(output.view(-1, output.size(-1)), predict_target,
+                      path_dict_char)
 
             # Loss
             predict_target = predict_target.long()
             loss = F.cross_entropy(output.view(-1, output.size(-1)),
                                    predict_target)
+            acc_char = accuracy_char(output.view(-1, output.size(-1)),
+                                     predict_target)
 
             loss.backward()
             optimizer.step()
 
+            # Logger
+            if (batch_idx + 1) % 10 == 0:
+                info = {'train_loss': loss.item(),
+                        'train acc char': acc_char}
+                for tag, value in info.items():
+                    train_logger.scalar_summary(tag, value, (batch_idx + 1) // 10)
+
             total_loss += loss.item()
-            print(loss.item())
+            total_acc_char += acc_char
+
+            # print("Loss value of batch idx = %d is %.3f" % (batch_idx + 1,
+            #                                                 loss.item()))
+            # print("Acc char-level: ", acc_char)
 
         # Save model checkpoints
         idx_checkpoint = epoch
@@ -152,11 +175,8 @@ def train_model(epochs):
                        str(idx_checkpoint) + '/' + "model_checkpoint_" +
                        str(idx_checkpoint) + '.pth')
 
-        # Logger
-        logs = {'train_loss': total_loss/len(train_dataloader)}
-
-        print("epoch = %d ,batch_idx = %d, loss = %.3f " % (epoch + 1,
-              batch_idx + 1, total_loss/len(train_dataloader)))
+        print("epoch = %d ,average_acc_char = %.3f, average_loss = %.3f " % (epoch + 1,
+              total_acc_char / len(train_dataloader), total_loss / len(train_dataloader)))
 
 
 # --------------------------------------------------------------------------------

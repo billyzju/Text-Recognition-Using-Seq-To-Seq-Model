@@ -11,7 +11,7 @@ import json
 # --------------------------------------------------------------------------------
 parser = argparse.ArgumentParser(description='preprocessing data')
 
-parser.add_argument('--preprocess_label', type=str, default='False',
+parser.add_argument('--preprocess_label', type=str, default='True',
                     help='Create files labels for lines, words and dictionary')
 
 parser.add_argument('--preprocess_image', type=str, default='False',
@@ -94,6 +94,8 @@ if args.preprocess_label == "True":
                     f.write(word[i] + '\n')
         # Add character for space
         f.write('|' + '\n')
+        # Add character for padding
+        f.write(' ' + '\n')
 
 
 path_data_lines = os.path.join(path_data, path_lines)
