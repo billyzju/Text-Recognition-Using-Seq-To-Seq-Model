@@ -1,0 +1,28 @@
+{
+    "data": {
+        "path_data": "E:/data/OCR/data/",
+        "path_preprocessing_data": "preprocessing_data/", 
+
+        "path_label_forms": "ascii/forms.txt",
+        "path_label_lines": "ascii/lines.txt",
+        "path_label_sentences": "ascii/sentences.txt",
+        "path_label_words": "ascii/words.txt",
+
+        "path_forms": "forms",
+        "path_lines": "lines",
+        "path_sentences": "sentences",
+        "path_words": "words",
+        "path_xml": "xml"
+    },
+
+    "models": {
+        "checkpoints": "checkpoints",
+        "logs": "logs",
+        "batch_size": 10,
+        "d_model": 512,
+        "heads": 8,
+        "N": 6,
+        "learning_rate": 0.0001
+    }
+
+}
