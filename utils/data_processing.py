@@ -13,16 +13,25 @@ from torch.autograd import Variable
 def get_emb(dict_char, line, max_seq_len):
     """ Crate embdding for target from dictionary
     """
-    # Padding label
-    line_pad = [' '] * max_seq_len
-    pad = (max_seq_len - len(line)) // 2
-    line_pad[pad:(pad + len(line))] = line[:]
-    label = []
+    start_char = len(dict_char)
+    stop_char = start_char + 1
 
-    for i in range(len(line_pad)):
-        index = dict_char.index(line_pad[i])
+    label = []
+    label.append(start_char)
+
+    for i in range(len(line)):
+        index = dict_char.index(line[i])
         label.append(index)
-    return label
+
+    label.append(stop_char)
+
+    # Padding label
+    pad_char = len(dict_char) - 1
+    line_pad = [pad_char] * max_seq_len
+    pad = (max_seq_len - len(label)) // 2
+    line_pad[pad:(pad + len(label))] = label[:]
+
+    return line_pad
 
 
 def subsequent_mask(size):

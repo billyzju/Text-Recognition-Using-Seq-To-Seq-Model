@@ -22,13 +22,19 @@ def translate(output, predict_target, path_dict_char):
     index_char = index_char[:99]
     s = "The line is   "
     for i in index_char:
-        s = s + dict_p_char[int(i)]
+        if i >= len(dict_p_char):
+            s = s + '|'
+        else:
+            s = s + dict_p_char[int(i)]
     print(s)
 
     predict_target = predict_target[:99]
     s = "The target is "
     for j in predict_target:
-        s = s + dict_p_char[int(j)]
+        if j >= len(dict_p_char):
+            s = s + '|'
+        else:
+            s = s + dict_p_char[int(j)]
     print(s)
 
 

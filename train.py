@@ -57,7 +57,7 @@ with open("config.json") as json_file:
 # --------------------------------------------------------------------------------
 # Target vocab
 with open(os.path.join(path_preprocessing_data, "dict_char.txt")) as f:
-    trg_vocab = np.shape(f.readlines())[0]
+    trg_vocab = np.shape(f.readlines())[0] + 2
 
 # Define model
 model = MainModel(trg_vocab, d_model, N, heads)
@@ -107,12 +107,14 @@ def train_model(epochs):
     if valid_dataloader is not None:
         valid_dataloader = valid_dataloader.loader()
 
-    # Train
     for epoch in range(epochs):
-        total_loss = 0
-        total_acc_char = 0
-        for batch_idx, (data, target) in enumerate(train_dataloader):
+        # Metrics
+        train_loss = 0
+        train_acc_char = 0
+        valid_acc_char = 0
 
+        # Train
+        for batch_idx, (data, target) in enumerate(train_dataloader):
             data = data.cuda()
             index_target = target.cuda()
 
@@ -135,6 +137,7 @@ def train_model(epochs):
             # Output
             output = model(data, input_target, src_mask=None,
                            trg_mask=target_mask)
+
             translate(output.view(-1, output.size(-1)), predict_target,
                       path_dict_char)
 
@@ -142,6 +145,7 @@ def train_model(epochs):
             predict_target = predict_target.long()
             loss = F.cross_entropy(output.view(-1, output.size(-1)),
                                    predict_target)
+
             acc_char = accuracy_char(output.view(-1, output.size(-1)),
                                      predict_target)
 
@@ -155,12 +159,26 @@ def train_model(epochs):
                 for tag, value in info.items():
                     train_logger.scalar_summary(tag, value, (batch_idx + 1) // 10)
 
-            total_loss += loss.item()
-            total_acc_char += acc_char
+            train_loss += loss.item()
+            train_acc_char += acc_char
 
-            # print("Loss value of batch idx = %d is %.3f" % (batch_idx + 1,
-            #                                                 loss.item()))
-            # print("Acc char-level: ", acc_char)
+        # Validation
+        # for batch_idx, (data, target) in enumerate(valid_dataloader):
+        #     data = data.cuda()
+        #     index_target = target.cuda()
+
+        #     input_target = index_target[:, :-1]
+        #     target_mask = create_mask(input_target)
+
+        #     predict_target = index_target[:, 1:].contiguous().view(-1)
+
+        #     output = model(data, input_target, src_mask=None,
+        #                    trg_mask=target_mask)
+
+        #     acc_char = accuracy_char(output.view(-1, output.size(-1)),
+        #                              predict_target.long())
+
+        #     valid_acc_char += acc_char
 
         # Save model checkpoints
         idx_checkpoint = epoch
@@ -175,8 +193,12 @@ def train_model(epochs):
                        str(idx_checkpoint) + '/' + "model_checkpoint_" +
                        str(idx_checkpoint) + '.pth')
 
-        print("epoch = %d ,average_acc_char = %.3f, average_loss = %.3f " % (epoch + 1,
-              total_acc_char / len(train_dataloader), total_loss / len(train_dataloader)))
+        print("epoch = %d ,train_acc_char = %.3f, train_loss = %.3f,\
+               valid_acc_char = %.3f " %
+              (epoch + 1,
+               train_acc_char / len(train_dataloader),
+               train_loss / len(train_dataloader),
+               valid_acc_char / len(valid_dataloader)))
 
 
 # --------------------------------------------------------------------------------
