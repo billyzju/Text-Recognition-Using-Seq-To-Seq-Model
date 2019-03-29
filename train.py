@@ -19,6 +19,20 @@ from utils.logger import Logger
 
 
 # --------------------------------------------------------------------------------
+#       Parser
+# --------------------------------------------------------------------------------
+parser = argparse.ArgumentParser(description='Training model')
+
+parser.add_argument('--train_scratch', type=str, default='False',
+                    help='Train model from scratch')
+
+parser.add_argument('--pre_train', type=str, default='True',
+                    help='Train model from previous checkpoints')
+
+args = parser.parse_args()
+
+
+# --------------------------------------------------------------------------------
 #       Config
 # --------------------------------------------------------------------------------
 with open("config.json") as json_file:
@@ -60,13 +74,20 @@ with open(os.path.join(path_preprocessing_data, "dict_char.txt")) as f:
     trg_vocab = np.shape(f.readlines())[0] + 2
 
 # Define model
-model = MainModel(trg_vocab, d_model, N, heads)
-model = model.cuda()
+if args.train_scratch == "True":
+    model = MainModel(trg_vocab, d_model, N, heads)
+    model = model.cuda()
 
-# Init Xavier
-for p in model.parameters():
-    if p.dim() > 1:
-        nn.init.xavier_uniform_(p)
+    # Init Xavier
+    for p in model.parameters():
+        if p.dim() > 1:
+            nn.init.xavier_uniform_(p)
+
+if args.pre_train == "True":
+    model = MainModel(trg_vocab, d_model, N, heads)
+    model = model.cuda()
+    model.load_state_dict(torch.load("checkpoints/11/model_checkpoint_11.pth"))
+
 
 # Define optimizer
 optimizer = torch.optim.Adam(model.parameters(),
@@ -157,7 +178,8 @@ def train_model(epochs):
                 info = {'train_loss': loss.item(),
                         'train acc char': acc_char}
                 for tag, value in info.items():
-                    train_logger.scalar_summary(tag, value, (batch_idx + 1) // 10)
+                    train_logger.scalar_summary(tag, value,
+                                                (batch_idx + 1) // 10)
 
             train_loss += loss.item()
             train_acc_char += acc_char
