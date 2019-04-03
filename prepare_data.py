@@ -37,6 +37,7 @@ with open("config.json") as json_file:
     path_label_lines = data["path_label_lines"]
     path_label_sentences = data["path_label_sentences"]
     path_label_words = data["path_label_words"]
+
     # Images
     path_forms = data["path_forms"]
     path_lines = data["path_lines"]

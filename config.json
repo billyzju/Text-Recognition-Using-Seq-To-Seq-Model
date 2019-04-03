@@ -1,7 +1,7 @@
 {
     "data": {
         "path_data": "E:/data/OCR/data/",
-        "path_preprocessing_data": "preprocessing_data/", 
+        "path_preprocessing_data": "preprocessing_data", 
 
         "path_label_forms": "ascii/forms.txt",
         "path_label_lines": "ascii/lines.txt",
@@ -18,7 +18,7 @@
     "models": {
         "checkpoints": "checkpoints",
         "logs": "logs",
-        "batch_size": 10,
+        "batch_size": 1,
         "d_model": 512,
         "heads": 8,
         "N": 6,

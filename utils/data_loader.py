@@ -17,7 +17,7 @@ from utils.data_processing import binarize, scale, pad, get_emb
 # --------------------------------------------------------------------------------
 class IAMDataset(Dataset):
     def __init__(self, path_p_lines, full_path_images, path_dict_char,
-                 max_seq_len=100, expected_size=None):
+                 max_seq_len, expected_size=None):
 
         # Get information of images and labels
         with open(path_p_lines, "r") as f:

@@ -102,11 +102,11 @@ class TransformerEncoder(nn.Module):
     Embeddings is obtained by CNN and feedforward to Encoder row by row
     Moreover, Positional encoding is add into embs
     """
-    def __init__(self, d_model, N, heads):
+    def __init__(self, d_model, N, heads, max_seq_len):
         super(TransformerEncoder, self).__init__()
 
         self.N = N
-        self.position = PositionalEncoder(d_model)
+        self.position = PositionalEncoder(d_model, max_seq_len)
         # Generate N Encoder layers
         self.layers = get_clones(EncoderLayer(d_model, heads), N)
         self.norm = Norm(d_model)
@@ -124,12 +124,12 @@ class TransformerEncoder(nn.Module):
 
 
 class TransformerDecoder(nn.Module):
-    def __init__(self, vocab_size, d_model, N, heads):
+    def __init__(self, vocab_size, d_model, N, heads, max_seq_len):
         super(TransformerDecoder, self).__init__()
 
         self.N = N
         self.embed = Embedder(vocab_size, d_model)
-        self.position = PositionalEncoder(d_model)
+        self.position = PositionalEncoder(d_model, max_seq_len)
         # Generate N Decoder layers
         self.layers = get_clones(DecoderLayer(d_model, heads), N)
         self.norm = Norm(d_model)
@@ -149,11 +149,12 @@ class TransformerDecoder(nn.Module):
 class Transformer(nn.Module):
     """ The final model for Transformer
     """
-    def __init__(self, trg_vocab, d_model, N, heads):
+    def __init__(self, trg_vocab, d_model, N, heads, max_seq_len):
         super(Transformer, self).__init__()
 
-        self.encoder = TransformerEncoder(d_model, N, heads)
-        self.decoder = TransformerDecoder(trg_vocab, d_model, N, heads)
+        self.encoder = TransformerEncoder(d_model, N, heads, max_seq_len)
+        self.decoder = TransformerDecoder(trg_vocab, d_model, N, heads,
+                                          max_seq_len)
 
         # This operation convert output of Decoder to a vector which have the
         # same size with one-hot vector

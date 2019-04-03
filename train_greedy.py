@@ -104,7 +104,6 @@ if args.pre_train == "True":
     model = model.cuda()
     model.load_state_dict(torch.load("checkpoints/11/model_checkpoint_11.pth"))
 
-
 # Define optimizer
 optimizer = torch.optim.Adam(model.parameters(),
                              lr=lr, betas=(0.9, 0.98), eps=1e-9)
@@ -145,27 +144,39 @@ def train_model(epochs, train_style=None):
             data = data.cuda()
             index_target = target.cuda()
 
-            # img = data[0].cpu()
-            # img = torchvision.transforms.functional.to_pil_image(img)
-            # plt.imshow(img)
-            # plt.show()
-
-            # The words used to train model
-            input_target = index_target[:, :-1]
-            # Create mask for input target
-            target_mask = create_mask(input_target)
-
             # The words we want model try to predict
             predict_target = index_target[:, 1:].contiguous().view(-1)
+
+            # Output of CNN
+            embs = model.cnn_model(data)
+            # Output of Encoder
+            memory = model.transformer.encoder(embs, mask=None)
 
             # Clear gradients
             optimizer.zero_grad()
 
-            # Output
-            output = model(data, input_target, src_mask=None,
-                           trg_mask=target_mask)
+            input_target = torch.ones(1, 1).fill_(trg_vocab - 2).\
+                type_as(index_target)
 
-            translate(output.view(-1, output.size(-1)), predict_target,
+            output_seq = torch.ones(1, 1, 82).type_as(index_target)
+
+            for i in range(20):
+                # Output of Decoder
+                output = model.transformer.decoder(input_target, memory,
+                                                   src_mask=None,
+                                                   trg_mask=None)
+
+                output = model.transformer.out(output[:, i:i+1, :])
+                print(output.size())
+                # Probability layer
+                prob = F.log_softmax(output, dim=-1)
+                # Get index of next word
+                _, next_word = torch.max(prob, dim=-1)
+                next_word = next_word.type_as(index_target)
+                input_target = torch.cat((input_target, next_word), dim=1)
+                output_seq = torch.cat((output_seq, output), dim=1)
+
+            translate(output_seq.view(-1, output.size(-1)), predict_target,
                       path_dict_char)
 
             # Loss

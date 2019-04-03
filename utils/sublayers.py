@@ -122,7 +122,7 @@ class Norm(nn.Module):
 class PositionalEncoder(nn.Module):
     """ Add position encoding into embeddings
     """
-    def __init__(self, d_model, max_seq_len=100):
+    def __init__(self, d_model, max_seq_len):
         super(PositionalEncoder, self).__init__()
 
         self.d_model = d_model
@@ -146,7 +146,7 @@ class PositionalEncoder(nn.Module):
         x = x * math.sqrt(self.d_model)
         # add constant to embedding
         seq_len = x.size(1)
-        x = x + Variable(self.pe[:, :seq_len, :], requires_grad=False).cuda()
+        x = x + Variable(self.pe[:, 0:seq_len, :], requires_grad=False).cuda()
         return x
 
 
