@@ -15,8 +15,8 @@ import numpy as np
 # --------------------------------------------------------------------------------
 def attention(q, k, v, d_k, mask=None, dropout=None):
     """ Calculate attention scores
-    Input: three matrices are q, k, v, mask for padding and dropout
-    Output: scores
+        Input: three matrices are q, k, v, mask for padding and dropout
+        Output: scores
     """
     # dot product between query and key
     scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(d_k)
@@ -41,7 +41,7 @@ def attention(q, k, v, d_k, mask=None, dropout=None):
 # --------------------------------------------------------------------------------
 class MultiHeadAttention(nn.Module):
     """ Multi-Head Attention scores show how much each word will be expressed
-    at this position
+        at this position
     """
     def __init__(self, heads, d_model, dropout=0.1):
         super(MultiHeadAttention, self).__init__()
@@ -136,10 +136,6 @@ class PositionalEncoder(nn.Module):
                     math.cos(pos / (10000 ** ((2 * (i + 1))/d_model)))
 
         self.pe = pe.unsqueeze(0)
-
-        # not trained by the optimizer, register them as buffers
-        # so the optimizer won't update
-        # self.register_buffer('pe', pe)
 
     def forward(self, x):
         # make embeddings relatively larger

@@ -26,12 +26,12 @@ def get_clones(module, N):
 # --------------------------------------------------------------------------------
 class EncoderLayer(nn.Module):
     """ Encoder layer is one element of Transformer Encoder
-    It contains two main sublayers which are attention and feedforward
+        It contains two main sublayers which are attention and feedforward
     """
     def __init__(self, d_model, heads, dropout=0.1):
         """ Input:
-        d_model is length of vector of embeddings
-        heads is number of heads for MultiHeadAttetion
+           d_model is length of vector of embeddings
+           heads is number of heads for MultiHeadAttetion
         """
         super(EncoderLayer, self).__init__()
 
@@ -48,8 +48,8 @@ class EncoderLayer(nn.Module):
 
     def forward(self, x, mask):
         """ Input:
-        x is the embs
-        mask is the mask of sequence after adding padding
+            x is the embs
+            mask is the mask of sequence after adding padding
         """
         x_norm = self.norm_1(x)
         x = x + self.dropout_1(self.attn(x_norm, x_norm, x_norm, mask))
@@ -77,12 +77,11 @@ class DecoderLayer(nn.Module):
         self.dropout_3 = nn.Dropout(dropout)
 
     def forward(self, x, e_outputs, src_mask, trg_mask):
-        """
-        Input:
-        x is target embedding
-        e_outputs is output of Encoder
-        src_mask is the mask from source
-        trg_mask is target mask
+        """ Input:
+            x is target embedding
+            e_outputs is output of Encoder
+            src_mask is the mask from source
+            trg_mask is target mask
         """
         x_norm = self.norm_1(x)
         # Self attention
@@ -99,8 +98,8 @@ class DecoderLayer(nn.Module):
 
 class TransformerEncoder(nn.Module):
     """ Encoder of Transformer
-    Embeddings is obtained by CNN and feedforward to Encoder row by row
-    Moreover, Positional encoding is add into embs
+        Embeddings is obtained by CNN and feedforward to Encoder row by row
+        Moreover, Positional encoding is add into embs
     """
     def __init__(self, d_model, N, heads, max_seq_len):
         super(TransformerEncoder, self).__init__()
@@ -113,8 +112,8 @@ class TransformerEncoder(nn.Module):
 
     def forward(self, src, mask):
         """ Input:
-        src is embedings from CNN
-        mask is the mask of sequence after adding padding
+            src is embedings from CNN
+            mask is the mask of sequence after adding padding
         """
         x = src
         x = self.position(x)
@@ -136,8 +135,8 @@ class TransformerDecoder(nn.Module):
 
     def forward(self, trg, e_outputs, src_mask, trg_mask):
         """ Input:
-        trg is output embedding in Transformer paper, it also is the
-        previous outputs
+            trg is output embedding in Transformer paper, it also is the
+            previous outputs
         """
         x = self.embed(trg)
         x = self.position(x)

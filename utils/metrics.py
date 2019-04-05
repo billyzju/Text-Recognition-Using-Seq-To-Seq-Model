@@ -50,5 +50,19 @@ def accuracy_char(output, predict_target):
     return acc / index_char.size(0)
 
 
-def accuracy_seq():
-    pass
+def accuracy_char_2(output, predict_target):
+    """ Calculating accuracy on characters of origin label
+    """
+    output = F.softmax(output, dim=-1)
+    index_char = output.max(2)[1]
+    acc = 0
+    n_char = 0
+    for i in range(index_char.size(0)):
+        for j in range(index_char.size(1)):
+            if predict_target[i, j] == 79:
+                break
+            n_char += 1
+            if index_char[i, j] == predict_target[i, j]:
+                acc = acc + 1
+
+    return acc / n_char

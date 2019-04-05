@@ -62,8 +62,8 @@ def make_layers(cfg, batch_norm=False):
 
 def vgg16(pretrained=False, **kwargs):
     """VGG 16-layer model (configuration "D")
-    Args:
-        pretrained (bool): If True, returns a model pre-trained on ImageNet
+       Args:
+       pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
     if pretrained:
         kwargs['init_weights'] = False
@@ -78,7 +78,7 @@ def vgg16(pretrained=False, **kwargs):
 # --------------------------------------------------------------------------------
 class VGG(nn.Module):
     """ VGG model to extract feature from image and it is driven by Transformer
-    to extract sequence feature
+        to extract sequence feature
     """
     def __init__(self, features, num_classes=1000, init_weights=True):
         super(VGG, self).__init__()

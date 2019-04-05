@@ -18,7 +18,8 @@
     "models": {
         "checkpoints": "checkpoints",
         "logs": "logs",
-        "batch_size": 1,
+        "n_epochs": 20,
+        "batch_size": 10,
         "d_model": 512,
         "heads": 8,
         "N": 6,
