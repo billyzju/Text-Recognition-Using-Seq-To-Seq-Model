@@ -11,7 +11,8 @@ import time
 import os
 import torch.nn.functional as F
 from utils.data_processing import create_mask
-from utils.metrics import translate, accuracy_char
+from utils.metrics import translate, accuracy_char_1, accuracy_char_2
+from utils.metrics import accuracy_word
 from utils.logger import Logger
 
 
@@ -86,8 +87,9 @@ class Trainer:
             output = self.model(data, input_target, src_mask=None,
                                 trg_mask=target_mask)
 
-            acc_char = accuracy_char(output.view(-1, output.size(-1)),
-                                     predict_target.long())
+            acc_char = accuracy_char_1(output.contiguous().
+                                       view(-1, output.size(-1)),
+                                       predict_target.long())
 
             valid_acc_char += acc_char
         return valid_acc_char / (batch_idx + 1)
@@ -98,7 +100,10 @@ class Trainer:
         for epoch in range(epochs):
             # Metrics
             train_loss = 0
-            train_acc_char = 0
+            train_acc_char_1 = 0
+            train_acc_char_2 = 0
+            train_acc_seq = 0
+            old_acc_seq = 0
 
             # Train
             for batch_idx, (data, target) in enumerate(self.train_dataloader):
@@ -119,38 +124,51 @@ class Trainer:
                 output = self.model(data, input_target, src_mask=None,
                                     trg_mask=target_mask)
                 # Translate and print output
-                translate(output.view(-1, output.size(-1)), predict_target,
-                          self.path_dict_char)
+                # translate(output.view(-1, output.size(-1)), predict_target,
+                #           self.path_dict_char)
 
                 # Cross entropy loss
-                predict_target = predict_target.long()
                 loss = F.cross_entropy(output.view(-1, output.size(-1)),
-                                       predict_target)
+                                       predict_target.long())
 
-                # Accuracy with char-level
-                acc_char = accuracy_char(output.view(-1, output.size(-1)),
-                                         predict_target)
+                # Accuracy with char-level and seq-level
+                acc_char_1 = accuracy_char_1(output.view(-1, output.size(-1)),
+                                             predict_target)
+                acc_char_2 = accuracy_char_2(output, index_target[:, 1:].
+                                             long())
+                acc_seq = accuracy_word(output, index_target[:, 1:].long())
+
+                train_loss += loss.item()
+                train_acc_char_1 += acc_char_1
+                train_acc_char_2 += acc_char_2
+                train_acc_seq += acc_seq
 
                 loss.backward()
                 self.optimizer.step()
 
                 # Logger
-                if (batch_idx + 1) % 50 == 0:
-                    info = {'train_loss': loss.item(),
-                            'train acc char': acc_char}
+                if (batch_idx + 1) % 500 == 0:
+                    info = {'train_loss': train_loss / 500,
+                            'train_acc_char_2': train_acc_char_2 / 500,
+                            'train_acc_seq': train_acc_seq / 500}
                     for tag, value in info.items():
                         self.train_logger.scalar_summary(tag, value,
-                                                         (batch_idx + 1) // 50)
+                                                         (batch_idx + 1) // 500)
 
-                train_loss += loss.item()
-                train_acc_char += acc_char
+                    print("epoch = %d, train_acc_char_2 = %.3f, train_acc_seq = %.3f, train_loss = %.3f " %
+                          (epoch + 1, train_acc_char_2 / 500,
+                           train_acc_seq / 500, train_loss / 500))
 
-            print("epoch = %d ,train_acc_char = %.3f, train_loss = %.3f " %
-                  (epoch + 1,
-                   train_acc_char / len(self.train_dataloader),
-                   train_loss / len(self.train_dataloader)))
+                    # Reset metrics
+                    train_loss = 0
+                    train_acc_char_1 = 0
+                    train_acc_char_2 = 0
+                    train_acc_seq = 0
 
-            save_checkpoints(path_checkpoints, epoch, self.model)
+                if (batch_idx + 1) % 1000 == 0:
+                    if (train_acc_seq / 1000) > old_acc_seq:
+                        old_acc_seq = train_acc_seq
+                        save_checkpoints(path_checkpoints, "09042019", self.model)
 
     def train_greedy(self, batch_size, epochs, trg_vocab, path_checkpoints):
         """ Train model with greedy and greedy is also use for inference
@@ -158,7 +176,10 @@ class Trainer:
         for epoch in range(epochs):
             # Metrics
             train_loss = 0
-            train_acc_char = 0
+            train_acc_char_1 = 0
+            train_acc_char_2 = 0
+            train_acc_seq = 0
+            old_acc_seq = 0
 
             # Train
             for batch_idx, (data, target) in enumerate(self.train_dataloader):
@@ -166,25 +187,23 @@ class Trainer:
                 index_target = target.cuda()
 
                 # The words we want model try to predict
-                predict_target = index_target[:, 1:].long()
+                predict_target = index_target[:, 1:].contiguous().view(-1)
+
+                # Clear gradients
+                self.optimizer.zero_grad()
 
                 # Output of CNN
                 embs = self.model.cnn_model(data)
                 # Output of Encoder
                 memory = self.model.transformer.encoder(embs, mask=None)
 
-                # Clear gradients
-                self.optimizer.zero_grad()
-
                 # Feed character for star of sequence
                 input_target = torch.ones(batch_size, 1).fill_(trg_vocab - 2).\
                     type_as(index_target)
 
-                # Loss for backprop
-                loss = 0
+                output_seq = torch.ones(8, 1, 82).type_as(index_target)
 
                 for i in range(self.max_seq_len - 1):
-                    print("pass")
                     # Output of Decoder
                     output = self.model.transformer.decoder(input_target,
                                                             memory,
@@ -192,48 +211,54 @@ class Trainer:
                                                             trg_mask=None)
 
                     output = self.model.transformer.out(output[:, i:i+1, :])
-                    # Loss for character ith
-                    loss_tmp = F.cross_entropy(
-                        output.view(-1, output.size(-1)),
-                        predict_target[:, i:i+1].contiguous().view(-1))
-                    loss += loss_tmp
+
                     # Probability layer
                     prob = F.log_softmax(output, dim=-1)
+
                     # Get index of next word
                     _, next_word = torch.max(prob, dim=-1)
                     next_word = next_word.type_as(index_target)
                     input_target = torch.cat((input_target, next_word), dim=1)
+                    output_seq = torch.cat((output_seq, output), dim=1)
 
-                # # Translate and print output
-                # translate(input_target[:, 1:, :].view(-1, output.size(-1)),
-                #           predict_target, self.path_dict_char)
+                # Loss
+                output = output_seq[:, 1:, :]
+                predict_target = predict_target.long()
+                loss = F.cross_entropy(output.contiguous().view(-1, output.size(-1)),
+                                       predict_target)
 
-                # # Loss of greedy is also cross entropy
-                # output = output_seq[:, 1:, :]
-                # loss = F.cross_entropy(output.view(-1, output.size(-1)),
-                #                        predict_target)
-
-                # acc_char = accuracy_char(output.view(-1, output.size(-1)),
-                #                          predict_target)
-
-                loss = loss / (self.max_seq_len - 1)
-                # loss.backward()
-                # self.optimizer.step()
-
-                # Logger
-                if (batch_idx + 1) % 50 == 0:
-                    info = {'train_loss': loss.item(),
-                            'train acc char': acc_char}
-                    for tag, value in info.items():
-                        self.train_logger.scalar_summary(tag, value,
-                                                         (batch_idx + 1) // 50)
+                acc_char_1 = accuracy_char_1(output.contiguous().view(-1, output.size(-1)),
+                                             predict_target)
+                acc_char_2 = accuracy_char_2(output, index_target[:, 1:].long())
+                acc_seq = accuracy_word(output, index_target[:, 1:].long())
 
                 train_loss += loss.item()
-                train_acc_char += acc_char
+                train_acc_char_1 += acc_char_1
+                train_acc_char_2 += acc_char_2
+                train_acc_seq += acc_seq
+                loss.backward()
+                self.optimizer.step()
 
-            print("epoch = %d ,train_acc_char = %.3f, train_loss = %.3f " %
-                  (epoch + 1,
-                   train_acc_char / len(self.train_dataloader),
-                   train_loss / len(self.train_dataloader)))
+                # Logger
+                if (batch_idx + 1) % 500 == 0:
+                    info = {'train_loss': train_loss / 500,
+                            'train_acc_char_2': train_acc_char_2 / 500,
+                            'train_acc_seq': train_acc_seq / 500}
+                    for tag, value in info.items():
+                        self.train_logger.scalar_summary(tag, value,
+                                                         (batch_idx + 1) // 500)
 
-            save_checkpoints(path_checkpoints, epoch, self.model)
+                    print("epoch = %d, train_acc_char_2 = %.3f, train_acc_seq = %.3f, train_loss = %.3f " %
+                          (epoch + 1, train_acc_char_2 / 500,
+                           train_acc_seq / 500, train_loss / 500))
+
+                    # Reset metrics
+                    train_loss = 0
+                    train_acc_char_1 = 0
+                    train_acc_char_2 = 0
+                    train_acc_seq = 0
+
+                if (batch_idx + 1) % 1000 == 0:
+                    if (train_acc_seq / 1000) > old_acc_seq:
+                        old_acc_seq = train_acc_seq
+                        save_checkpoints(path_checkpoints, "09042019", self.model)

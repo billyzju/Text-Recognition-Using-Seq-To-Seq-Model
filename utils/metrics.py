@@ -38,7 +38,7 @@ def translate(output, predict_target, path_dict_char):
     print(s)
 
 
-def accuracy_char(output, predict_target):
+def accuracy_char_1(output, predict_target):
     output = F.softmax(output, dim=-1)
     index_char = output.max(1)[1]
     acc = 0
@@ -66,3 +66,23 @@ def accuracy_char_2(output, predict_target):
                 acc = acc + 1
 
     return acc / n_char
+
+
+def accuracy_word(output, predict_target):
+    """ Calculating accuracy on words
+    """
+    output = F.softmax(output, dim=-1)
+    index_char = output.max(2)[1]
+    acc = 0
+    # Get 1 element in batch size
+    for i in range(index_char.size(0)):
+        n_char = 0
+        for j in range(index_char.size(1)):
+            if index_char[i, j] == predict_target[i, j]:
+                n_char += 1
+        # If number of correct characters is equal with
+        # max sequence length
+        if n_char == index_char.size(1):
+            acc += 1
+
+    return acc / index_char.size(0)

@@ -75,13 +75,14 @@ with open("config.json") as json_file:
 # --------------------------------------------------------------------------------
 #       Configuration for trainer
 # --------------------------------------------------------------------------------
-# Path to data train
+# Path to data
 path_p_lines = os.path.join(path_preprocessing_data, path_label_lines)
 full_path_images = os.path.join(path_preprocessing_data, "path_images.txt")
 path_dict_char = os.path.join(path_preprocessing_data, "dict_char.txt")
 
 lines_train = os.path.join(path_preprocessing_data, "lines_train.txt")
 path_images_train = os.path.join(path_preprocessing_data, "images_train.txt")
+
 lines_valid = os.path.join(path_preprocessing_data, "lines_valid.txt")
 path_images_valid = os.path.join(path_preprocessing_data, "images_valid.txt")
 
@@ -127,7 +128,6 @@ trainer = Trainer(model=model, data_loader=IAMDataLoader, optimizer=optimizer,
 if args.train_teacher_forcing == "True":
     trainer.setup_data(batch_size)
     trainer.train_teacher_forcing(10, path_checkpoints)
-
 elif args.train_greedy == "True":
     trainer.setup_data(batch_size=10)
     trainer.train_greedy(batch_size=10, epochs=5, trg_vocab=trg_vocab,

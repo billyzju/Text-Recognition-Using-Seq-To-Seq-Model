@@ -83,11 +83,6 @@ class IAMDataset(Dataset):
         image = image / 255
 
         # Preprocessing image
-
-        # image = scale(image, self.max_h)
-
-        # image = pad(image, self.max_w)
-
         image = [cv2.resize(image, (500, 32))[:, :, 0]]
 
         # Transforms
