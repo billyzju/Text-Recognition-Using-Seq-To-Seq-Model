@@ -11,7 +11,7 @@ import time
 import os
 import torch.nn.functional as F
 from utils.main_model import MainModel
-from utils.data_loader import IAMDataLoader
+from utils.iam_data_loader import IAMDataLoader
 import matplotlib.pyplot as plt
 from utils.data_processing import create_mask
 from utils.logger import Logger

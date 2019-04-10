@@ -1,7 +1,7 @@
 {
     "data": {
         "path_data": "E:/data/OCR/data/",
-        "path_preprocessing_data": "preprocessing_data", 
+        "path_preprocessing_data": "preprocessing_data/iam/", 
 
         "path_label_forms": "ascii/forms.txt",
         "path_label_lines": "ascii/lines.txt",
@@ -13,6 +13,12 @@
         "path_sentences": "sentences",
         "path_words": "words",
         "path_xml": "xml"
+    },
+
+    "data_jp":{
+        "path_data":"E:/data/OCR/data/",
+        "path_preprocessing_data": "preprocessing_data/jp/",
+        "path_labels": "label.json"
     },
 
     "models": {
