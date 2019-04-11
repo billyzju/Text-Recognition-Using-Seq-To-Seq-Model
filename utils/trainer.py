@@ -115,7 +115,7 @@ class Trainer:
                 target_mask = create_mask(input_target)
 
                 # The words we want model try to predict
-                predict_target = index_target[:, 1:].contiguous().view(-1)
+                predict_target = index_target[:, 1:].contiguous().view(-1).long()
 
                 # Clear gradients
                 self.optimizer.zero_grad()

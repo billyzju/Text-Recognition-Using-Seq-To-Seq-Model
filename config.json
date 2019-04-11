@@ -16,9 +16,10 @@
     },
 
     "data_jp":{
-        "path_data":"E:/data/OCR/data/",
+        "path_data":"E:/data/OCR/synthesis04/",
         "path_preprocessing_data": "preprocessing_data/jp/",
-        "path_labels": "label.json"
+        "path_data_images": "data",
+        "path_labels": "labels.json"
     },
 
     "models": {
