@@ -9,6 +9,7 @@ import json
 import numpy as np
 import time
 import os
+import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from utils.data_processing import create_mask
 from utils.metrics import translate, accuracy_char_1, accuracy_char_2
@@ -110,6 +111,12 @@ class Trainer:
                 data = data.cuda()
                 index_target = target.cuda()
 
+                # Show image input
+                # img = data[0].cpu()
+                # img = torchvision.transforms.functional.to_pil_image(img)
+                # plt.imshow(img)
+                # plt.show()
+
                 # The words used to train model
                 input_target = index_target[:, :-1]
                 target_mask = create_mask(input_target)
@@ -123,9 +130,6 @@ class Trainer:
                 # Output
                 output = self.model(data, input_target, src_mask=None,
                                     trg_mask=target_mask)
-                # Translate and print output
-                # translate(output.view(-1, output.size(-1)), predict_target,
-                #           self.path_dict_char)
 
                 # Cross entropy loss
                 loss = F.cross_entropy(output.view(-1, output.size(-1)),
@@ -158,6 +162,9 @@ class Trainer:
                     print("epoch = %d, train_acc_char_2 = %.3f, train_acc_seq = %.3f, train_loss = %.3f " %
                           (epoch + 1, train_acc_char_2 / 500,
                            train_acc_seq / 500, train_loss / 500))
+                    # Translate and print output
+                    translate(output.view(-1, output.size(-1)), predict_target,
+                              self.path_dict_char)
 
                     # Reset metrics
                     train_loss = 0

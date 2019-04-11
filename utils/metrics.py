@@ -11,7 +11,7 @@ import torch.nn.functional as F
 def translate(output, predict_target, path_dict_char):
     """ Translate one-hot vector to character
     """
-    with open(path_dict_char, "r") as f:
+    with open(path_dict_char, "r", encoding="utf8") as f:
         dict_char = f.readlines()
         dict_p_char = []
         for i in dict_char:
