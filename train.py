@@ -190,7 +190,7 @@ if args.train_japanese == "True":
     # Trainer
     trainer = Trainer(model=model, data_loader=JPDataLoader, optimizer=optimizer,
                       train_logger=train_logger, valid_logger=None,
-                      max_seq_len=30, lines_train=lines_train,
+                      max_seq_len=20, lines_train=lines_train,
                       path_images_train=path_images_train, lines_valid=lines_valid,
                       path_images_valid=path_images_valid,
                       path_dict_char=path_dict_word)

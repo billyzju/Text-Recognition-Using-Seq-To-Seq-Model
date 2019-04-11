@@ -98,6 +98,7 @@ class Trainer:
     def train_teacher_forcing(self, epochs, path_checkpoints):
         """ Train model with teacher forcing
         """
+        step = 0
         for epoch in range(epochs):
             # Metrics
             train_loss = 0
@@ -108,6 +109,7 @@ class Trainer:
 
             # Train
             for batch_idx, (data, target) in enumerate(self.train_dataloader):
+                step += 1
                 data = data.cuda()
                 index_target = target.cuda()
 
@@ -156,8 +158,7 @@ class Trainer:
                             'train_acc_char_2': train_acc_char_2 / 500,
                             'train_acc_seq': train_acc_seq / 500}
                     for tag, value in info.items():
-                        self.train_logger.scalar_summary(tag, value,
-                                                         (batch_idx + 1) // 500)
+                        self.train_logger.scalar_summary(tag, value, step)
 
                     print("epoch = %d, train_acc_char_2 = %.3f, train_acc_seq = %.3f, train_loss = %.3f " %
                           (epoch + 1, train_acc_char_2 / 500,
@@ -166,16 +167,15 @@ class Trainer:
                     translate(output.view(-1, output.size(-1)), predict_target,
                               self.path_dict_char)
 
+                    if (train_acc_seq / 500) > old_acc_seq:
+                        old_acc_seq = train_acc_seq / 500
+                        save_checkpoints(path_checkpoints, "12042019", self.model)
+
                     # Reset metrics
                     train_loss = 0
                     train_acc_char_1 = 0
                     train_acc_char_2 = 0
                     train_acc_seq = 0
-
-                if (batch_idx + 1) % 1000 == 0:
-                    if (train_acc_seq / 1000) > old_acc_seq:
-                        old_acc_seq = train_acc_seq
-                        save_checkpoints(path_checkpoints, "09042019", self.model)
 
     def train_greedy(self, batch_size, epochs, trg_vocab, path_checkpoints):
         """ Train model with greedy and greedy is also use for inference

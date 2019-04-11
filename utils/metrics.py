@@ -19,20 +19,20 @@ def translate(output, predict_target, path_dict_char):
     # Softmax
     output = F.softmax(output, dim=-1)
     index_char = output.max(1)[1]
-    index_char = index_char[:99]
+    index_char = index_char[:19]
     s = "The line is   "
     for i in index_char:
         if i >= len(dict_p_char):
-            s = s + '|'
+            s = s + '*'
         else:
             s = s + dict_p_char[int(i)]
     print(s)
 
-    predict_target = predict_target[:99]
+    predict_target = predict_target[:19]
     s = "The target is "
     for j in predict_target:
         if j >= len(dict_p_char):
-            s = s + '|'
+            s = s + '*'
         else:
             s = s + dict_p_char[int(j)]
     print(s)
@@ -59,7 +59,7 @@ def accuracy_char_2(output, predict_target):
     n_char = 0
     for i in range(index_char.size(0)):
         for j in range(index_char.size(1)):
-            if predict_target[i, j] == 79:
+            if predict_target[i, j] == 2625:
                 break
             n_char += 1
             if index_char[i, j] == predict_target[i, j]:
