@@ -178,7 +178,7 @@ if args.train_japanese == "True":
     if args.pre_train == "True":
         model = MainModel(trg_vocab, d_model, N, heads)
         model = model.cuda()
-        model.load_state_dict(torch.load("checkpoints/17/model_checkpoint_17.pth"))
+        model.load_state_dict(torch.load("checkpoints/12042019/model_checkpoint_12042019.pth"))
 
     # Define optimizer
     optimizer = torch.optim.Adam(model.parameters(),
