@@ -63,7 +63,7 @@ def pad(img, expected_size):
     # Scale width
     scale_rate = w_img / w_expected
     if scale_rate > 1:
-        h_img = round(h_img /  scale_rate)
+        h_img = round(h_img / scale_rate)
         w_img = w_expected
         img = cv2.resize(img, (w_expected, h_img))
 

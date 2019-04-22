@@ -40,8 +40,9 @@ def attention(q, k, v, d_k, mask=None, dropout=None):
 #       Classes
 # --------------------------------------------------------------------------------
 class MultiHeadAttention(nn.Module):
-    """ Multi-Head Attention scores show how much each word will be expressed
-        at this position
+    """
+    Multi-Head Attention scores show how much each word will be expressed
+    at this position
     """
     def __init__(self, heads, d_model, dropout=0.1):
         super(MultiHeadAttention, self).__init__()
@@ -85,7 +86,8 @@ class MultiHeadAttention(nn.Module):
 
 
 class FeedForward(nn.Module):
-    """ After Attention, FeedForward layer is used, it just a simple architecture
+    """
+    After Attention, FeedForward layer is used, it just a simple architecture
     """
     def __init__(self, d_model, d_ff=2048, dropout=0.1):
         super(FeedForward, self).__init__()
@@ -101,7 +103,8 @@ class FeedForward(nn.Module):
 
 
 class Norm(nn.Module):
-    """ Normalization for result between each layer in both encoder and decoder
+    """
+    Normalization for result between each layer in both encoder and decoder
     """
     def __init__(self, d_model, eps=1e-6):
         super(Norm, self).__init__()
@@ -120,7 +123,8 @@ class Norm(nn.Module):
 
 
 class PositionalEncoder(nn.Module):
-    """ Add position encoding into embeddings
+    """
+    Add position encoding into embeddings
     """
     def __init__(self, d_model, max_seq_len):
         super(PositionalEncoder, self).__init__()
@@ -147,7 +151,8 @@ class PositionalEncoder(nn.Module):
 
 
 class Embedder(nn.Module):
-    """ Convert from word to embedding for target
+    """
+    Convert from word to embedding for target
     """
     def __init__(self, vocab_size, d_model):
         super(Embedder, self).__init__()

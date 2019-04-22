@@ -1,7 +1,7 @@
 {
-    "data": {
+    "data_eng": {
         "path_data": "E:/data/OCR/data/",
-        "path_preprocessing_data": "preprocessing_data/iam/", 
+        "path_preprocessing_data": "preprocessing_data/eng/", 
 
         "path_label_forms": "ascii/forms.txt",
         "path_label_lines": "ascii/lines.txt",
@@ -19,7 +19,8 @@
         "path_data":"E:/data/OCR/synthesis04/",
         "path_preprocessing_data": "preprocessing_data/jp/",
         "path_data_images": "data",
-        "path_labels": "labels.json"
+        "path_labels": "labels.json",
+        "path_data_test": "test"
     },
 
     "models": {

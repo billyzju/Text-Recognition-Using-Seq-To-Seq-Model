@@ -130,6 +130,7 @@ num_images = len(lines)
 num_images_train = round(num_images * 0.8)
 
 index = np.arange(num_images)
+np.random.seed(0)
 np.random.shuffle(index)
 index_train = index[:num_images_train]
 index_valid = index[num_images_train:]

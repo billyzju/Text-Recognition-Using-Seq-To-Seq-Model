@@ -44,6 +44,7 @@ with open(path_labels_file, "r", encoding="utf8") as f:
     num_images_valid = round(num_images * 0.9)
 
     index = np.arange(num_images)
+    np.random.seed(0)
     np.random.shuffle(index)
 
     index_train = index[:num_images_train]
@@ -85,15 +86,18 @@ with open(os.path.join(path_preprocessing_data, "images_test.txt"), "w") as f:
         f.write(i + "\n")
 
 # Write labels target to file text
-with open(os.path.join(path_preprocessing_data, "lines_train.txt"), "w", encoding="utf8") as f:
+with open(os.path.join(path_preprocessing_data, "lines_train.txt"),
+          "w", encoding="utf8") as f:
     for i in labels_train:
         f.write(i + "\n")
 
-with open(os.path.join(path_preprocessing_data, "lines_valid.txt"), "w", encoding="utf8") as f:
+with open(os.path.join(path_preprocessing_data, "lines_valid.txt"),
+          "w", encoding="utf8") as f:
     for i in labels_valid:
         f.write(i + "\n")
 
-with open(os.path.join(path_preprocessing_data, "lines_test.txt"), "w", encoding="utf8") as f:
+with open(os.path.join(path_preprocessing_data, "lines_test.txt"),
+          "w", encoding="utf8") as f:
     for i in labels_test:
         f.write(i + "\n")
 

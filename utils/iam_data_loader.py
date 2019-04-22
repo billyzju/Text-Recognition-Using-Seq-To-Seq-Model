@@ -74,7 +74,8 @@ class IAMDataset(Dataset):
         return len(self.images)
 
     def __getitem__(self, idx):
-        """ Read images and labels
+        """
+        Read images and labels
         """
         label = self.labels[idx]
         image = cv2.imread(self.images[idx])

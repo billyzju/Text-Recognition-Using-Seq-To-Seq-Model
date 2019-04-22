@@ -9,7 +9,8 @@ import torch.nn.functional as F
 #       Funcs
 # --------------------------------------------------------------------------------
 def translate(output, predict_target, path_dict_char):
-    """ Translate one-hot vector to character
+    """
+    Translate one-hot vector to character
     """
     with open(path_dict_char, "r", encoding="utf8") as f:
         dict_char = f.readlines()
@@ -19,7 +20,7 @@ def translate(output, predict_target, path_dict_char):
     # Softmax
     output = F.softmax(output, dim=-1)
     index_char = output.max(1)[1]
-    index_char = index_char[:19]
+    index_char = index_char[:57]
     s = "The line is   "
     for i in index_char:
         if i >= len(dict_p_char):
@@ -28,7 +29,7 @@ def translate(output, predict_target, path_dict_char):
             s = s + dict_p_char[int(i)]
     print(s)
 
-    predict_target = predict_target[:19]
+    predict_target = predict_target[:57]
     s = "The target is "
     for j in predict_target:
         if j >= len(dict_p_char):
@@ -51,7 +52,8 @@ def accuracy_char_1(output, predict_target):
 
 
 def accuracy_char_2(output, predict_target):
-    """ Calculating accuracy on characters of origin label
+    """
+    Calculating accuracy on characters of origin label
     """
     output = F.softmax(output, dim=-1)
     index_char = output.max(2)[1]
@@ -69,7 +71,8 @@ def accuracy_char_2(output, predict_target):
 
 
 def accuracy_word(output, predict_target):
-    """ Calculating accuracy on words
+    """
+    Calculating accuracy on words or sequence
     """
     output = F.softmax(output, dim=-1)
     index_char = output.max(2)[1]
@@ -77,12 +80,20 @@ def accuracy_word(output, predict_target):
     # Get 1 element in batch size
     for i in range(index_char.size(0)):
         n_char = 0
+        n_correct_char = 0
+        k = -1
         for j in range(index_char.size(1)):
-            if index_char[i, j] == predict_target[i, j]:
-                n_char += 1
+            if predict_target[i, j] == 2625:
+                break
+            k += 1
+            while index_char[i, k] == 16:
+                k += 1
+            n_char += 1
+            if index_char[i, k] == predict_target[i, j]:
+                n_correct_char += 1
         # If number of correct characters is equal with
         # max sequence length
-        if n_char == index_char.size(1):
+        if n_char == n_correct_char:
             acc += 1
 
     return acc / index_char.size(0)
