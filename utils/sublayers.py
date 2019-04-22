@@ -14,9 +14,10 @@ import numpy as np
 #       Funcs
 # --------------------------------------------------------------------------------
 def attention(q, k, v, d_k, mask=None, dropout=None):
-    """ Calculate attention scores
-        Input: three matrices are q, k, v, mask for padding and dropout
-        Output: scores
+    """
+    Calculate attention scores
+    Input: three matrices are q, k, v, mask for padding and dropout
+    Output: scores
     """
     # dot product between query and key
     scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(d_k)
@@ -33,7 +34,7 @@ def attention(q, k, v, d_k, mask=None, dropout=None):
 
     # dot product between scores and value
     output = torch.matmul(scores, v)
-    return output
+    return output, scores
 
 
 # --------------------------------------------------------------------------------
@@ -60,6 +61,9 @@ class MultiHeadAttention(nn.Module):
         self.v_linear = nn.Linear(d_model, d_model)
         # Wk matrix
         self.k_linear = nn.Linear(d_model, d_model)
+
+        self.att_scores = None
+
         self.dropout = nn.Dropout(dropout)
         self.out = nn.Linear(d_model, d_model)
 
@@ -76,7 +80,8 @@ class MultiHeadAttention(nn.Module):
         v = v.transpose(1, 2)
 
         # Calculate attention using function we will define next
-        scores = attention(q, k, v, self.d_k, mask, self.dropout)
+        scores, self.att_scores = attention(q, k, v, self.d_k, mask,
+                                            self.dropout)
 
         # Concatenate heads and put through final linear layer
         concat = scores.transpose(1, 2).contiguous().view(batch_size,
