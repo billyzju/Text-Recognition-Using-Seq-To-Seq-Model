@@ -10,13 +10,13 @@ import numpy as np
 import time
 import os
 import torch.nn.functional as F
-from utils.main_model import MainModel
-from utils.iam_data_loader import IAMDataLoader
-from utils.jp_data_loader import JPDataLoader
+from util.main_model import MainModel
+from util.iam_data_loader import IAMDataLoader
+from util.jp_data_loader import JPDataLoader
 import matplotlib.pyplot as plt
-from utils.data_processing import create_mask
-from utils.logger import Logger
-from utils.trainer import Trainer
+from util.data_processing import create_mask
+from util.logger import Logger
+from util.trainer import Trainer
 
 
 # --------------------------------------------------------------------------------

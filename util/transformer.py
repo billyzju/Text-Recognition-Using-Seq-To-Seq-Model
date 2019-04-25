@@ -4,11 +4,11 @@
 import torch
 import torch.nn as nn
 import torchvision
-from utils.sublayers import MultiHeadAttention
-from utils.sublayers import FeedForward
-from utils.sublayers import Norm
-from utils.sublayers import PositionalEncoder
-from utils.sublayers import Embedder
+from util.sublayers import MultiHeadAttention
+from util.sublayers import FeedForward
+from util.sublayers import Norm
+from util.sublayers import PositionalEncoder
+from util.sublayers import Embedder
 import copy
 
 

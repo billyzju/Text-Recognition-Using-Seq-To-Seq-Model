@@ -4,8 +4,8 @@
 import torch
 import torch.nn as nn
 import torchvision
-from utils.transformer import Transformer
-from utils.cnn_models import vgg16
+from util.transformer import Transformer
+from util.cnn_models import vgg16
 
 
 # --------------------------------------------------------------------------------
