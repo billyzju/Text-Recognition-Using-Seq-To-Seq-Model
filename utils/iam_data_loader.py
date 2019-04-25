@@ -9,7 +9,7 @@ from random import shuffle
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms import Compose, ToTensor
-from utils.data_processing import get_emb
+from utils.data_processing import pad, get_emb
 
 
 # --------------------------------------------------------------------------------
@@ -36,55 +36,38 @@ class IAMDataset(Dataset):
 
         self.images = []
         self.labels = []
-        self.thres = []
-        self.w = []
-        self. h = []
+
         self.expected_size = expected_size
         num_lines = np.shape(lines)[0]
 
         for i in range(num_lines):
-            seg_flag = lines[i].split(" ")[1]
-            if seg_flag == "ok":
-                if lines[i].split(" ")[0]\
-                   == os.path.split(path_images[i])[1].split(".")[0]:
+            if lines[i].split(" ")[0] ==\
+               os.path.split(path_images[i])[1].split(".")[0]:
+                # Corresponding label line
+                line = lines[i].split(" ")[-1][0:-1]
+                if len(line) < 25:
                     # Get image
                     self.images.append(path_images[i][0:-1])
-
-                    # Corresponding label line
-                    line = lines[i].split(" ")[-1][0:-1]
 
                     # Get embedding of label
                     label = get_emb(dict_p_char, line, max_seq_len)
                     self.labels.append(label)
 
-                    # Threshold for binarization
-                    self.thres.append(int(lines[i].split(" ")[2]))
-
-                    # Size of image
-                    self.w.append(int(lines[i].split(" ")[6]))
-                    self.h.append(int(lines[i].split(" ")[7]))
-
-        # Max width
-        self.max_h = max(self.h)
-
-        # Max height
-        self.max_w = max(self.w)
-
     def __len__(self):
         return len(self.images)
 
     def __getitem__(self, idx):
-        """
-        Read images and labels
+        """ Read images and labels
         """
         label = self.labels[idx]
         image = cv2.imread(self.images[idx])
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
         # Normalize image
         image = image / 255
 
         # Preprocessing image
-        image = [cv2.resize(image, (500, 32))[:, :, 0]]
+        image = pad(image, (500, 32))
 
         # Transforms
         image = torch.tensor(image, dtype=torch.float32)

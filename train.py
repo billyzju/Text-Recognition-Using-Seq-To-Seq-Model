@@ -23,16 +23,16 @@ from utils.trainer import Trainer
 #       Parser
 # --------------------------------------------------------------------------------
 parser = argparse.ArgumentParser(description='Training model')
-parser.add_argument('--train_japanese', type=str, default='True',
+parser.add_argument('--train_japanese', type=str, default='False',
                     help='Train model for japanese')
 
-parser.add_argument('--train_english', type=str, default='False',
+parser.add_argument('--train_english', type=str, default='True',
                     help='Train model for english')
 
-parser.add_argument('--train_scratch', type=str, default='False',
+parser.add_argument('--train_scratch', type=str, default='True',
                     help='Train model from scratch')
 
-parser.add_argument('--pre_train', type=str, default='True',
+parser.add_argument('--pre_train', type=str, default='False',
                     help='Train model from previous checkpoints')
 
 args = parser.parse_args()
@@ -55,7 +55,6 @@ if args.train_english == "True":
         path_label_words = data["path_label_words"]
 
         # Images
-        path_lines = data["path_lines"]
         path_words = data["path_words"]
 
         # Model
@@ -100,19 +99,19 @@ if args.train_english == "True":
         model = MainModel(trg_vocab, d_model, N, heads)
         model = model.cuda()
         model.load_state_dict(
-            torch.load("checkpoints/eng/17/model_checkpoint_17.pth"))
+            torch.load("checkpoints/eng/23042019/model_checkpoint_23042019.pth"))
 
     # Define optimizer
     optimizer = torch.optim.Adam(model.parameters(),
                                  lr=lr, betas=(0.9, 0.98), eps=1e-9)
 
     # Logger
-    train_logger = Logger("logs")
+    train_logger = Logger("logs/eng")
 
     # Trainer
     trainer = Trainer(
         model=model, data_loader=IAMDataLoader, optimizer=optimizer,
-        train_logger=train_logger, valid_logger=None, max_seq_len=100,
+        train_logger=train_logger, valid_logger=None, max_seq_len=25,
         lines_train=lines_train, path_images_train=path_images_train,
         lines_valid=lines_valid, path_images_valid=path_images_valid,
         path_dict_char=path_dict_char)
@@ -139,7 +138,6 @@ if args.train_japanese == "True":
         lr = models["learning_rate"]
 
     # Path to processing data
-    full_path_images = os.path.join(path_preprocessing_data, "path_images.txt")
     path_dict_word = os.path.join(path_preprocessing_data, "dict_word.txt")
 
     lines_train = os.path.join(path_preprocessing_data,
@@ -192,7 +190,7 @@ if args.train_japanese == "True":
 # --------------------------------------------------------------------------------
 if args.train_english == "True":
     trainer.setup_data(batch_size)
-    trainer.train_teacher_forcing(10, path_checkpoints)
+    trainer.train_teacher_forcing(20, path_checkpoints)
 elif args.train_japanese == "True":
     trainer.setup_data(batch_size)
     trainer.train_teacher_forcing(10, path_checkpoints)

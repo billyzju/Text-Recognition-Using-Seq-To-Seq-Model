@@ -22,21 +22,26 @@ def translate(output, predict_target, path_dict_char):
     index_char = output.max(1)[1]
     index_char = index_char[:57]
     s = "The line is   "
+    predict = ""
     for i in index_char:
         if i >= len(dict_p_char):
             s = s + '*'
         else:
             s = s + dict_p_char[int(i)]
+            predict = predict + dict_p_char[int(i)]
     print(s)
 
     predict_target = predict_target[:57]
     s = "The target is "
+    target= ""
     for j in predict_target:
         if j >= len(dict_p_char):
             s = s + '*'
         else:
             s = s + dict_p_char[int(j)]
+            target = target + dict_p_char[int(j)]
     print(s)
+    return predict, target
 
 
 def accuracy_char_1(output, predict_target):

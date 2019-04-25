@@ -11,7 +11,8 @@ from torch.autograd import Variable
 #       Funcs
 # --------------------------------------------------------------------------------
 def get_emb(dict_char, line, max_seq_len):
-    """ Crate embdding for target from dictionary
+    """
+    Create embdding for target from dictionary
     """
     start_char = len(dict_char)
     stop_char = start_char + 1
@@ -36,15 +37,17 @@ def get_emb(dict_char, line, max_seq_len):
 
 
 def subsequent_mask(size):
-    """ Mask out subsequent positions
+    """
+    Mask out subsequent positions
     """
     attn_shape = (1, size, size)
     subsequent_mask = np.triu(np.ones(attn_shape), k=1).astype('uint8')
     return torch.from_numpy(subsequent_mask) == 0
 
 
-def create_mask(target, pad=79):
-    """ Get mask for target
+def create_mask(target, pad=2625):
+    """
+    Get mask for target
     """
     target_mask = (target != pad).unsqueeze(1)
     target_mask = target_mask & Variable(

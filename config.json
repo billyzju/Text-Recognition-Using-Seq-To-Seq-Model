@@ -8,11 +8,7 @@
         "path_label_sentences": "ascii/sentences.txt",
         "path_label_words": "ascii/words.txt",
 
-        "path_forms": "forms",
-        "path_lines": "lines",
-        "path_sentences": "sentences",
-        "path_words": "words",
-        "path_xml": "xml"
+        "path_words": "words"
     },
 
     "data_jp":{

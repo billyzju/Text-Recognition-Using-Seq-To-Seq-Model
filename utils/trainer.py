@@ -74,7 +74,7 @@ class Trainer:
             self.valid_dataloader = valid_dataloader.loader()
 
     def validate_model(self):
-        """ 
+        """
         Validate model on validate subset. In training stage, validating model with
         validating subset for saving checkpoints
         """
