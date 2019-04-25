@@ -1,6 +1,6 @@
 {
     "data_eng": {
-        "path_data": "../../input/iam/iam/",
+        "path_data": "../input/iam/iam/",
         "path_preprocessing_data": "preprocessing_data/eng/", 
 
         "path_label_forms": "ascii/forms.txt",
