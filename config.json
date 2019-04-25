@@ -1,6 +1,6 @@
 {
     "data_eng": {
-        "path_data": "../input/iam/iam/",
+        "path_data": "../../input/iam/iam/",
         "path_preprocessing_data": "preprocessing_data/eng/", 
 
         "path_label_forms": "ascii/forms.txt",
@@ -23,7 +23,7 @@
         "checkpoints": "checkpoints",
         "logs": "logs",
         "n_epochs": 20,
-        "batch_size": 1,
+        "batch_size": 16,
         "d_model": 512,
         "heads": 8,
         "N": 6,

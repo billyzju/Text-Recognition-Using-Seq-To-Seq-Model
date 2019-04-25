@@ -32,10 +32,10 @@ with open("config.json") as json_file:
 # --------------------------------------------------------------------------------
 #       Main
 # --------------------------------------------------------------------------------
-with open(images_test, "r") as f:
+with open(images_valid, "r") as f:
     lines = f.readlines()
 
-with open(images_test, "w") as f:
+with open(images_valid, "w") as f:
     for i in lines:
-        line = i.replace("E:/data/OCR", "../input/iam")
+        line = i.replace("../input/iam", "../../input/iam")
         f.write(line)
