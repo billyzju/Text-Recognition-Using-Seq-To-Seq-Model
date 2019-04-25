@@ -28,8 +28,10 @@ cfg = {
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512,
           512, 'M'],
 
+    # 'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512,
+    #       'M', 512, 512, 512, 'M'],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512,
-          'M', 512, 512, 512, 'M'],
+          'M'],
 
     'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512,
           512, 512, 'M', 512, 512, 512, 512, 'M']
@@ -84,7 +86,7 @@ class VGG(nn.Module):
         super(VGG, self).__init__()
 
         self.features = features
-        self.soft = nn.Linear(15, 100)
+        self.soft = nn.Linear(62, 100)
 
         # AdaptiveAvgPool will return fixed size for any input size
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
