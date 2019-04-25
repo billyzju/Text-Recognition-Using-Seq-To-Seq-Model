@@ -45,7 +45,7 @@ def subsequent_mask(size):
     return torch.from_numpy(subsequent_mask) == 0
 
 
-def create_mask(target, pad=2625):
+def create_mask(target, pad=79):
     """
     Get mask for target
     """

@@ -66,7 +66,7 @@ def accuracy_char_2(output, predict_target):
     n_char = 0
     for i in range(index_char.size(0)):
         for j in range(index_char.size(1)):
-            if predict_target[i, j] == 2625:
+            if predict_target[i, j] == 79:
                 break
             n_char += 1
             if index_char[i, j] == predict_target[i, j]:
@@ -76,8 +76,7 @@ def accuracy_char_2(output, predict_target):
 
 
 def accuracy_word(output, predict_target):
-    """
-    Calculating accuracy on words or sequence
+    """ Calculating accuracy on words
     """
     output = F.softmax(output, dim=-1)
     index_char = output.max(2)[1]
@@ -85,20 +84,12 @@ def accuracy_word(output, predict_target):
     # Get 1 element in batch size
     for i in range(index_char.size(0)):
         n_char = 0
-        n_correct_char = 0
-        k = -1
         for j in range(index_char.size(1)):
-            if predict_target[i, j] == 2625:
-                break
-            k += 1
-            while index_char[i, k] == 16:
-                k += 1
-            n_char += 1
-            if index_char[i, k] == predict_target[i, j]:
-                n_correct_char += 1
+            if index_char[i, j] == predict_target[i, j]:
+                n_char += 1
         # If number of correct characters is equal with
         # max sequence length
-        if n_char == n_correct_char:
+        if n_char == index_char.size(1):
             acc += 1
-
+    
     return acc / index_char.size(0)
