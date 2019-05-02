@@ -2,7 +2,7 @@
 ## Introduction
 - In this repo, I will propose a seq-to-seq approach for Text Recognition (TR), this is also my challenge in my new comapny.
 - This approach is a trial model for Text Recognition. Because I want to make a new installation of **Transformer** for TR, although I can retry a available paper. Thus, the first version maybe have a medium accuracy which is lower than many other models, but **WORTH A TRY**
-## Algorithm in detail
+## Algorithm
 - In this section, I will explain my idea for this problem. Recently, many projects and papers propose several of new model for OCR problem, such as seq-to-seq, object recognition, ... My method also bases on seq-to-seq model, the new point in this repo is replacing RNN and Attention by Transformer whose original paper is [here](https://arxiv.org/pdf/1706.03762.pdf).
 - My model seq-to-seq often contains Encoder and Decoder. Moreover, there is a CNN driven by Transformer to extract sequential feature as input for Transformer. And the key point of this system is **Multi-Head Attention**, so I will overal view attention mechanism of Transformer.
 ### 1. Transformer
@@ -19,7 +19,8 @@
   * Decoder input is target embedding: [batch_size, max_seq_len, d_model]
 
 ### 2. CNN
+The network used in this repo is VGG16
 ## Dataset
-## Intallation
+[IAM dataset](http://www.fki.inf.unibe.ch/databases/iam-handwriting-database)
 ## Reference
 There are many papers about OCR problem in this [git](https://github.com/ChanChiChoi/awesome-ocr)
