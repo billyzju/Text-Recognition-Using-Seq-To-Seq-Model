@@ -4,8 +4,10 @@
 import torch
 import torch.nn as nn
 import torchvision
+from torch.autograd import Variable
 from util.transformer import Transformer
-from util.cnn_models import vgg16
+from util.data_processing import subsequent_mask
+from util.backbones.vgg16 import vgg16
 
 
 # --------------------------------------------------------------------------------
@@ -20,7 +22,9 @@ class MainModel(nn.Module):
         self.transformer = Transformer(trg_vocab, d_model, N, heads,
                                        max_seq_len)
 
-    def forward(self, img, trg, src_mask, trg_mask):
+    def forward(self, img, trg, trg_mask):
         src = self.cnn_model(img)
+        src_mask = Variable(subsequent_mask(src.size(1)).
+                            type_as(src))
         output = self.transformer(src, trg, src_mask, trg_mask)
         return output

@@ -91,5 +91,5 @@ def accuracy_word(output, predict_target):
         # max sequence length
         if n_char == index_char.size(1):
             acc += 1
-    
+
     return acc / index_char.size(0)

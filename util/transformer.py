@@ -16,7 +16,8 @@ import copy
 #       Funcs
 # --------------------------------------------------------------------------------
 def get_clones(module, N):
-    """ Copy layer to generate multi layer for Transformer
+    """
+    Copy layer to generate multi layer for Transformer
     """
     return nn.ModuleList([copy.deepcopy(module) for i in range(N)])
 
@@ -25,13 +26,15 @@ def get_clones(module, N):
 #       Classes
 # --------------------------------------------------------------------------------
 class EncoderLayer(nn.Module):
-    """ Encoder layer is one element of Transformer Encoder
-        It contains two main sublayers which are attention and feedforward
+    """
+    Encoder layer is one element of Transformer Encoder
+    It contains two main sublayers which are attention and feedforward
     """
     def __init__(self, d_model, heads, dropout=0.1):
-        """ Input:
-           d_model is length of vector of embeddings
-           heads is number of heads for MultiHeadAttetion
+        """
+        Input:
+        d_model is length of vector of embeddings
+        heads is number of heads for MultiHeadAttetion
         """
         super(EncoderLayer, self).__init__()
 
@@ -47,9 +50,10 @@ class EncoderLayer(nn.Module):
         self.dropout_2 = nn.Dropout(dropout)
 
     def forward(self, x, mask):
-        """ Input:
-            x is the embs
-            mask is the mask of sequence after adding padding
+        """
+        Input:
+        x is the embs
+        mask is the mask of sequence after adding padding
         """
         x_norm = self.norm_1(x)
         x = x + self.dropout_1(self.attn(x_norm, x_norm, x_norm, mask))
@@ -59,7 +63,8 @@ class EncoderLayer(nn.Module):
 
 
 class DecoderLayer(nn.Module):
-    """ Decoder layer is one element of Transformer Decoder
+    """
+    Decoder layer is one element of Transformer Decoder
     """
     def __init__(self, d_model, heads, dropout=0.1):
         super(DecoderLayer, self).__init__()
@@ -77,11 +82,12 @@ class DecoderLayer(nn.Module):
         self.dropout_3 = nn.Dropout(dropout)
 
     def forward(self, x, e_outputs, src_mask, trg_mask):
-        """ Input:
-            x is target embedding
-            e_outputs is output of Encoder
-            src_mask is the mask from source
-            trg_mask is target mask
+        """
+        Input:
+        x is target embedding
+        e_outputs is output of Encoder
+        src_mask is the mask from source
+        trg_mask is target mask
         """
         x_norm = self.norm_1(x)
         # Self attention
@@ -97,9 +103,10 @@ class DecoderLayer(nn.Module):
 
 
 class TransformerEncoder(nn.Module):
-    """ Encoder of Transformer
-        Embeddings is obtained by CNN and feedforward to Encoder row by row
-        Moreover, Positional encoding is add into embs
+    """
+    Encoder of Transformer
+    Embeddings is obtained by CNN and feedforward to Encoder row by row
+    Moreover, Positional encoding is add into embs
     """
     def __init__(self, d_model, N, heads, max_seq_len):
         super(TransformerEncoder, self).__init__()
@@ -111,9 +118,10 @@ class TransformerEncoder(nn.Module):
         self.norm = Norm(d_model)
 
     def forward(self, src, mask):
-        """ Input:
-            src is embedings from CNN
-            mask is the mask of sequence after adding padding
+        """
+        Input:
+        src is embedings from CNN
+        mask is the mask of sequence after adding padding
         """
         x = src
         x = self.position(x)
@@ -134,9 +142,10 @@ class TransformerDecoder(nn.Module):
         self.norm = Norm(d_model)
 
     def forward(self, trg, e_outputs, src_mask, trg_mask):
-        """ Input:
-            trg is output embedding in Transformer paper, it also is the
-            previous outputs
+        """
+        Input:
+        trg is output embedding in Transformer paper, it also is the
+        previous outputs
         """
         x = self.embed(trg)
         x = self.position(x)
@@ -146,7 +155,8 @@ class TransformerDecoder(nn.Module):
 
 
 class Transformer(nn.Module):
-    """ The final model for Transformer
+    """
+    The final model for Transformer
     """
     def __init__(self, trg_vocab, d_model, N, heads, max_seq_len):
         super(Transformer, self).__init__()
@@ -162,6 +172,7 @@ class Transformer(nn.Module):
     def forward(self, src, trg, src_mask, trg_mask):
         # Output from Encoder
         e_outputs = self.encoder(src, src_mask)
+        src_mask = None
 
         # Decoder
         d_output = self.decoder(trg, e_outputs, src_mask, trg_mask)

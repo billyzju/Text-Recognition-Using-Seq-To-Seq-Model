@@ -11,8 +11,8 @@ import time
 import os
 import torch.nn.functional as F
 from util.main_model import MainModel
-from util.iam_data_loader import IAMDataLoader
-from util.jp_data_loader import JPDataLoader
+from util.data_loaders.iam_data_loader import IAMDataLoader
+from util.data_loaders.jp_data_loader import JPDataLoader
 import matplotlib.pyplot as plt
 from util.data_processing import create_mask
 from util.logger import Logger
@@ -26,10 +26,10 @@ parser = argparse.ArgumentParser(description='Training model')
 parser.add_argument('--train_japanese', type=str, default='False',
                     help='Train model for japanese')
 
-parser.add_argument('--train_english', type=str, default='True',
+parser.add_argument('--train_english', type=str, default='False',
                     help='Train model for english')
 
-parser.add_argument('--train_scratch', type=str, default='True',
+parser.add_argument('--train_scratch', type=str, default='False',
                     help='Train model from scratch')
 
 parser.add_argument('--pre_train', type=str, default='False',
@@ -99,7 +99,7 @@ if args.train_english == "True":
         model = MainModel(trg_vocab, d_model, N, heads)
         model = model.cuda()
         model.load_state_dict(
-            torch.load("checkpoints/eng/23042019/model_checkpoint_23042019.pth"))
+            torch.load("checkpoints/eng/03052019/model_checkpoint_03052019.pth"))
 
     # Define optimizer
     optimizer = torch.optim.Adam(model.parameters(),
@@ -168,7 +168,7 @@ if args.train_japanese == "True":
         model = MainModel(trg_vocab, d_model, N, heads)
         model = model.cuda()
         model.load_state_dict(
-            torch.load("checkpoints/jp/12042019/model_checkpoint_12042019.pth"))
+            torch.load("checkpoints/jp/03052019/model_checkpoint_03052019.pth"))
 
     # Define optimizer
     optimizer = torch.optim.Adam(model.parameters(),
@@ -193,4 +193,4 @@ if args.train_english == "True":
     trainer.train_teacher_forcing(20, path_checkpoints)
 elif args.train_japanese == "True":
     trainer.setup_data(batch_size)
-    trainer.train_teacher_forcing(10, path_checkpoints)
+    trainer.train_teacher_forcing(20, path_checkpoints)

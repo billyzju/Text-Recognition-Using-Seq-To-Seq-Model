@@ -16,6 +16,7 @@ from util.data_processing import create_mask, subsequent_mask
 from util.metrics import translate, accuracy_char_1, accuracy_char_2
 from util.metrics import accuracy_word
 from util.logger import Logger
+from torchsummary import summary
 
 
 # --------------------------------------------------------------------------------
@@ -88,7 +89,7 @@ class Trainer:
             input_target = index_target[:, :-1]
             target_mask = create_mask(input_target)
 
-            output = self.model(data, input_target, src_mask=None,
+            output = self.model(data, input_target,
                                 trg_mask=target_mask)
             acc_char_2 = accuracy_char_2(output, index_target[:, 1:].
                                          long())
@@ -138,7 +139,7 @@ class Trainer:
                 self.optimizer.zero_grad()
 
                 # Output
-                output = self.model(data, input_target, src_mask=None,
+                output = self.model(data, input_target,
                                     trg_mask=target_mask)
 
                 # Cross entropy loss
@@ -181,7 +182,7 @@ class Trainer:
                     train_acc_seq = 0
 
                 if (batch_idx + 1) % 5000 == 0:
-                    valid_acc = self.validate_model()
+                    valid_acc = self.validate_model()[1]
                     print("valid_acc_seq = ", valid_acc)
                     if valid_acc > old_acc_seq:
                         old_acc_seq = valid_acc
@@ -200,7 +201,9 @@ class Trainer:
             predict_target = index_target[:, 1:].contiguous().view(-1)
 
             embs = self.model.cnn_model(data)
-            memory = self.model.transformer.encoder(embs, mask=None)
+            src_mask = Variable(subsequent_mask(embs.size(1)).
+                                type_as(data))
+            memory = self.model.transformer.encoder(embs, mask=src_mask)
             input_target = (torch.ones(batch_size, 1).fill_(trg_vocab - 2).
                             type_as(index_target))
             output_seq = (torch.ones(batch_size, 1, trg_vocab).
@@ -211,7 +214,7 @@ class Trainer:
                 output = self.model.transformer.decoder(
                     input_target,
                     memory,
-                    src_mask=None,
+                    src_mask=src_mask,
                     trg_mask=Variable(subsequent_mask(input_target.size(1)).
                                       type_as(data)))
 
