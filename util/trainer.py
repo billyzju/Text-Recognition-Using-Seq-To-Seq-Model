@@ -186,7 +186,7 @@ class Trainer:
                     print("valid_acc_seq = ", valid_acc)
                     if valid_acc > old_acc_seq:
                         old_acc_seq = valid_acc
-                        save_checkpoints(path_checkpoints, "12042019",
+                        save_checkpoints(path_checkpoints, "03052019",
                                          self.model)
 
     def greedy_decoding(self, batch_size, trg_vocab):
