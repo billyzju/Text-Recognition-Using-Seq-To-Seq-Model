@@ -9,7 +9,7 @@ from random import shuffle
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms import Compose, ToTensor
-from util.data_processing import pad, get_emb
+from utils.data_processing import pad, get_emb
 
 
 # --------------------------------------------------------------------------------

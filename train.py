@@ -10,13 +10,13 @@ import numpy as np
 import time
 import os
 import torch.nn.functional as F
-from util.main_model import MainModel
-from util.data_loaders.iam_data_loader import IAMDataLoader
-from util.data_loaders.jp_data_loader import JPDataLoader
+from utils.main_model import MainModel
+from utils.data_loaders.iam_data_loader import IAMDataLoader
+from utils.data_loaders.jp_data_loader import JPDataLoader
 import matplotlib.pyplot as plt
-from util.data_processing import create_mask
-from util.logger import Logger
-from util.trainer import Trainer
+from utils.data_processing import create_mask
+from utils.logger import Logger
+from utils.trainer import Trainer
 
 
 # --------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ if args.train_japanese == "True":
         model = MainModel(trg_vocab, d_model, N, heads)
         model = model.cuda()
         model.load_state_dict(
-            torch.load("checkpoints/jp/03052019/model_checkpoint_03052019.pth"))
+            torch.load("checkpoints/jp/12042019/model_checkpoint_12042019.pth"))
 
     # Define optimizer
     optimizer = torch.optim.Adam(model.parameters(),

@@ -28,10 +28,10 @@ cfg = {
     'B': [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512,
           512, 'M'],
 
-    # 'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512,
-    #       'M', 512, 512, 512, 'M'],
     'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512,
-          'M'],
+          'M', 512, 512, 512, 'M'],
+    # 'D': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512,
+    #       'M'],
 
     'E': [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512,
           512, 512, 'M', 512, 512, 512, 512, 'M']
@@ -41,7 +41,7 @@ cfg = {
 # --------------------------------------------------------------------------------
 #       Funcs
 # --------------------------------------------------------------------------------
-def make_layers(cfg, batch_norm=True):
+def make_layers(cfg, batch_norm=False):
     """ Make layers for all VGG version from config
     """
     layers = []
@@ -86,7 +86,7 @@ class VGG(nn.Module):
         super(VGG, self).__init__()
 
         self.features = features
-        self.soft = nn.Linear(62, 100)
+        self.soft = nn.Linear(15, 100)
 
         # AdaptiveAvgPool will return fixed size for any input size
         self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
@@ -120,9 +120,11 @@ class VGG(nn.Module):
                                         nonlinearity='relu')
                 if m.bias is not None:
                     nn.init.constant_(m.bias, 0)
+
             elif isinstance(m, nn.BatchNorm2d):
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
+
             elif isinstance(m, nn.Linear):
                 nn.init.normal_(m.weight, 0, 0.01)
                 nn.init.constant_(m.bias, 0)

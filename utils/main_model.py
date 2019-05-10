@@ -5,9 +5,9 @@ import torch
 import torch.nn as nn
 import torchvision
 from torch.autograd import Variable
-from util.transformer import Transformer
-from util.data_processing import subsequent_mask
-from util.backbones.vgg16 import vgg16
+from utils.language_models.transformer import Transformer
+from utils.data_processing import subsequent_mask
+from utils.backbones.vgg16 import vgg16
 
 
 # --------------------------------------------------------------------------------

@@ -26,7 +26,7 @@
         "batch_size": 1,
         "d_model": 512,
         "heads": 8,
-        "N": 3,
+        "N": 6,
         "learning_rate": 0.0001
     }
 
