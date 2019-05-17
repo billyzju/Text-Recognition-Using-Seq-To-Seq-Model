@@ -13,10 +13,10 @@ from utils.backbones.vgg16 import vgg16
 # --------------------------------------------------------------------------------
 #       Classes
 # --------------------------------------------------------------------------------
-class MainModel(nn.Module):
+class TransformerModel(nn.Module):
     def __init__(self, trg_vocab, d_model, N, heads, dropout=0.1,
                  max_seq_len=100):
-        super(MainModel, self).__init__()
+        super(TransformerModel, self).__init__()
 
         self.cnn_model = vgg16()
         self.transformer = Transformer(trg_vocab, d_model, N, heads,

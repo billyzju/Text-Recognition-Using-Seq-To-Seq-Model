@@ -11,9 +11,9 @@ from utils.language_models.sublayers import Embedder
 # 		Class
 # --------------------------------------------------------------------------------
 class LSTMEncoder(nn.Module):
-    def __init__(self, input_dim, hidden_dim, output_dim, num_layer,
+    def __init__(self, input_dim, hidden_dim, num_layer,
                  bidirectional):
-        super(LSTMEncoder).__init__()
+        super(LSTMEncoder, self).__init__()
 
         # Define LSTM layer
         self.lstm = nn.LSTM(input_dim, hidden_dim, num_layer,
@@ -27,11 +27,14 @@ class LSTMEncoder(nn.Module):
 
 class GlobalAttention(nn.Module):
     def __init__(self, encoder_dim, decoder_dim):
+        """
+        encoder_dim: dim hidden states Encoder
+        decoder_dim: dim of hidden state Decoder
+        """
         super(GlobalAttention, self).__init__()
 
-        assert (encoder_dim == decoder_dim), "Dimension of embeddings must be equal"
         dim = encoder_dim
-        self.linear_in = nn.Linear(dim, dim, bias=False)
+        self.linear_in = nn.Linear(encoder_dim, decoder_dim, bias=False)
         self.linear_context = nn.Linear(dim, dim, bias=False)
         self.linear_query = nn.Linear(dim, dim, bias=True)
         self.v = nn.Linear(dim, 1, bias=False)
@@ -117,7 +120,7 @@ class GlobalAttention(nn.Module):
 class LSTMDecoder(nn.Module):
     def __init__(self, vocab_size, input_dim, tgt_hidden_dim, src_hidden_dim,
                  num_layer, bidirectional, dropout=0.2):
-        super(LSTMDecoder, self).__init__
+        super(LSTMDecoder, self).__init__()
 
         self.embed = Embedder(vocab_size, input_dim)
         # Define LSTM layer
@@ -143,3 +146,22 @@ class LSTMDecoder(nn.Module):
         )
         outputs = self.linear_out(attn_outputs)
         return outputs, decoder_hidden
+
+
+class LSTM(nn.Module):
+    def __init__(self, input_dim, src_hidden_dim, tgt_hidden_dim,
+                 num_layer, bidirectional, vocab_size):
+        super(LSTM, self).__init__()
+
+        self.encoder = LSTMEncoder(input_dim, hidden_dim,
+                                   num_layer, bidirectional)
+        self.decoder = LSTMDecoder(vocab_size, input_dim, tgt_hidden_dim,
+                                   src_hidden_dim, num_layer,
+                                   bidirectional)
+
+    def forward(self, src, trg, init_hidden, context_lengths):
+        context, hidden_encoder = self.encoder(src)
+        self.src_hidden_dim = hidden_encoder.size()
+        output, _ = self.decoder(trg, hidden_encoder, context, context_lengths)
+
+        return output

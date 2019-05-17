@@ -2,12 +2,10 @@
     "data_eng": {
         "path_data": "E:/data/OCR/iam",
         "path_preprocessing_data": "preprocessing_data/eng/", 
-
         "path_label_forms": "ascii/forms.txt",
         "path_label_lines": "ascii/lines.txt",
         "path_label_sentences": "ascii/sentences.txt",
         "path_label_words": "ascii/words.txt",
-
         "path_words": "words"
     },
 

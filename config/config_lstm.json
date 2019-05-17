@@ -1,0 +1,52 @@
+{
+    "data_eng": {
+        "path_data": "E:/data/OCR/iam",
+        "path_preprocessing_files": "preprocessing_data/eng/", 
+        "file_dict": "dict_char.txt",
+
+        "file_images_train": "images_train.txt",
+        "file_images_valid": "images_valid.txt",
+        "file_images_test": "images_test.txt",
+
+        "file_labels_train": "labels_train.txt",
+        "file_labels_valid": "labels_valid.txt",
+        "file_labels_test": "labels_test.txt"
+    },
+
+    "data_jp":{
+        "path_data":"E:/data/OCR/synthesis04/",
+        "path_preprocessing_files": "preprocessing_data/jp/",
+        "file_dict": "dict_word.txt",
+        
+        "file_images_train": "images_train.txt",
+        "file_images_valid": "images_valid.txt",
+        "file_images_test": "images_test.txt",
+
+        "file_labels_train": "labels_train.txt",
+        "file_labels_valid": "labels_valid.txt",
+        "file_labels_test": "labels_test.txt"
+    },
+
+    "arch": {
+        "type": "LSTMModel",
+        "args": {}
+    },
+
+    "trainer": {
+        "epochs": 50,
+        "batch_size": 1,
+        "lr": 0.001,
+        "checkpoints": "checkpoint/",
+        "save_freg": 1,
+        "save_best": true
+    },
+
+    "model": {
+        "input_dim": 512,
+        "src_hidden_dim": 256,
+        "num_layer":1,
+        "bidirectional":true,
+        "tgt_hidden_dim":256
+    }
+
+}
