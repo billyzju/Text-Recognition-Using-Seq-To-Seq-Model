@@ -10,7 +10,7 @@ import numpy as np
 import time
 import os
 import torch.nn.functional as F
-from utils.lstm_model import LSTMModel
+from utils.ocr_models.lstm_model import LSTMModel
 from utils.data_loaders.iam_data_loader import IAMDataLoader
 from utils.data_loaders.jp_data_loader import JPDataLoader
 from utils.logger import Logger
@@ -21,11 +21,8 @@ from utils.trainers.lstm_trainer import LSTMTrainer
 #       Parser
 # --------------------------------------------------------------------------------
 parser = argparse.ArgumentParser(description='Training model')
-parser.add_argument('--train_japanese', type=str, default='False',
-                    help='Train model for japanese')
-
-parser.add_argument('--train_english', type=str, default='True',
-                    help='Train model for english')
+parser.add_argument('--language', type=str, default='eng',
+                    help='Train model for japanese or english')
 
 parser.add_argument('--resume', type=str, default=False,
                     help='Train model from scratch')
@@ -40,10 +37,10 @@ with open("config/config_lstm.json") as json_file:
     config = json.load(json_file)
     trainer_config = config["trainer"]
     model_config = config["model"]
-    if args.train_english == "True":
+    if args.language == "eng":
         # English data
         data_config = config["data_eng"]
-    elif args.train_japanese == "True":
+    elif args.language == "jp":
         # Japanese Data
         data_config = config["data_jp"]
 
@@ -65,10 +62,10 @@ with open(dictionary) as f:
 
 # Define model
 input_dim = model_config["input_dim"]
-src_hidden_dim = model_config["src_hidden_dim"]
+hidden_dim = model_config["hidden_dim"]
 num_layer = model_config["num_layer"]
-tgt_hidden_dim = model_config["tgt_hidden_dim"]
-model = LSTMModel(input_dim, src_hidden_dim, tgt_hidden_dim, num_layer,
+
+model = LSTMModel(input_dim, hidden_dim, num_layer,
                   bidirectional=False, vocab_size=trg_vocab)
 # Init Xavier
 for p in model.parameters():
@@ -81,13 +78,14 @@ optimizer = torch.optim.Adam(model.parameters(),
                              betas=(0.9, 0.98), eps=1e-9)
 
 # Logger
-train_logger = Logger("logs/eng")
+train_logger = Logger("logs/eng/test/train/")
+valid_logger = Logger("logs/eng/test/valid/")
 
 # Trainer
 trainer = LSTMTrainer(
     model=model, optimizer=optimizer, data_loader=IAMDataLoader,
     config=config, resume=False, resume_path=None,
-    train_logger=train_logger, valid_logger=None,
+    train_logger=train_logger, valid_logger=valid_logger,
     labels_train=labels_train, path_images_train=images_train,
     labels_valid=labels_valid, path_images_valid=images_valid,
     path_dictionary=dictionary)
@@ -95,7 +93,4 @@ trainer = LSTMTrainer(
 # --------------------------------------------------------------------------------
 #       Main
 # --------------------------------------------------------------------------------
-if args.train_english == "True":
-    trainer.train()
-elif args.train_japanese == "True":
-    trainer.train()
+trainer.train()

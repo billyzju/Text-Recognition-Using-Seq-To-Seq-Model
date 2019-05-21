@@ -12,7 +12,6 @@ import time
 import os
 import tqdm
 from torchsummary import summary
-# from logger.visualization import WriterTensorboardX
 
 
 # --------------------------------------------------------------------------------
@@ -27,15 +26,15 @@ def logging(train_logger, result, step):
 # 		Class of base for trainer
 # --------------------------------------------------------------------------------
 class TrainerBase:
-    def __init__(self, model, optimizer, config, resume=False, resume_path=None,
-                 train_logger=None, valid_logger=None):
+    def __init__(self, model, optimizer, config, resume=False,
+                 resume_path=None, train_logger=None, valid_logger=None):
         # Setup directory for checkpoint saving
         self.start_time = datetime.datetime.now().strftime('%m%d_%H%M%S')
         self.checkpoint_dir = os.path.join(config['trainer']['checkpoint'],
                                            self.start_time)
         os.makedirs(self.checkpoint_dir, exist_ok=True)
         # Setup device
-        self.device, device_ids = self._prepare_device(config['n_gpu'])
+        self.device, device_ids = self._prepare_device(config['trainer']['n_gpu'])
         self.model = model.to(self.device)
         if len(device_ids) > 1:
             self.model = torch.nn.DataParallel(model, device_ids=device_ids)
@@ -59,12 +58,14 @@ class TrainerBase:
             print("Time to train the epoch", end_time - start_time)
 
             # Log metrics
-            if (self.train_logger is not None) and\
+            if (self.train_logger is not None) or\
                (self.valid_logger is not None):
-                for key, value in result.item():
+                for key, value in result.items():
                     if key == "train_metrics":
+                        print("The metrics of training ", value)
                         logging(self.train_logger, value, epoch)
                     elif key == "valid_metrics":
+                        print("The metrics of validating ", value)
                         logging(self.valid_logger, value, epoch)
 
             # Save checkpoints

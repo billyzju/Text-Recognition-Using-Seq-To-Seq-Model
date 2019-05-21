@@ -1,31 +1,51 @@
 {
     "data_eng": {
         "path_data": "E:/data/OCR/iam",
-        "path_preprocessing_data": "preprocessing_data/eng/", 
-        "path_label_forms": "ascii/forms.txt",
-        "path_label_lines": "ascii/lines.txt",
-        "path_label_sentences": "ascii/sentences.txt",
-        "path_label_words": "ascii/words.txt",
-        "path_words": "words"
+        "path_preprocessing_files": "preprocessing_data/eng/", 
+        "file_dict": "dict_char.txt",
+
+        "file_images_train": "images_train.txt",
+        "file_images_valid": "images_valid.txt",
+        "file_images_test": "images_test.txt",
+
+        "file_labels_train": "labels_train.txt",
+        "file_labels_valid": "labels_valid.txt",
+        "file_labels_test": "labels_test.txt"
     },
 
     "data_jp":{
         "path_data":"E:/data/OCR/synthesis04/",
-        "path_preprocessing_data": "preprocessing_data/jp/",
-        "path_data_images": "data",
-        "path_labels": "labels.json",
-        "path_data_test": "test"
+        "path_preprocessing_files": "preprocessing_data/jp/",
+        "file_dict": "dict_word.txt",
+        
+        "file_images_train": "images_train.txt",
+        "file_images_valid": "images_valid.txt",
+        "file_images_test": "images_test.txt",
+
+        "file_labels_train": "labels_train.txt",
+        "file_labels_valid": "labels_valid.txt",
+        "file_labels_test": "labels_test.txt"
     },
 
-    "models": {
-        "checkpoints": "checkpoints/eng",
-        "logs": "logs",
-        "n_epochs": 20,
-        "batch_size": 1,
+    "arch": {
+        "type": "Transformer",
+        "args": {}
+    },
+
+    "trainer": {
+        "epochs": 50,
+        "batch_size": 10,
+        "lr": 0.001,
+        "n_gpu": 1,
+        "checkpoint": "checkpoints/",
+        "save_freq": 1,
+        "save_best": true
+    },
+
+    "model": {
         "d_model": 512,
         "heads": 8,
-        "N": 6,
-        "learning_rate": 0.0001
+        "N": 6
     }
 
 }

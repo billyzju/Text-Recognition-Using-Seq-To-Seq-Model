@@ -34,19 +34,19 @@
 
     "trainer": {
         "epochs": 50,
-        "batch_size": 1,
+        "batch_size": 10,
         "lr": 0.001,
-        "checkpoints": "checkpoint/",
-        "save_freg": 1,
+        "n_gpu": 1,
+        "checkpoint": "checkpoints/",
+        "save_freq": null,
         "save_best": true
     },
 
     "model": {
         "input_dim": 512,
-        "src_hidden_dim": 256,
+        "hidden_dim": 256,
         "num_layer":1,
-        "bidirectional":true,
-        "tgt_hidden_dim":256
+        "bidirectional":true
     }
 
 }
