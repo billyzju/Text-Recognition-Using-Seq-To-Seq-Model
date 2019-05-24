@@ -21,12 +21,19 @@ class LSTMEncoder(nn.Module):
                             bidirectional=bidirectional)
 
     def forward(self, src):
-        # Src size  = [seq_length, batch_size, embed_length]
+        # Input size of LSTM  = [seq_length, batch_size, embed_length]
         # Output of LSTM contains output with size
         # (seq_len, batch, num_directions * hidden_size) and hidden state
         # at t = seq_length
-        src = src.transpose(0, 1)
-        output, (hidden_state, hidden_cell) = self.lstm(src)
+
+        all_outputs = []
+        for row in range(src.size(2)):
+            # Covert row size into [seq_length, batch_size, embed_length]
+            inp = src[:, :, row, :].transpose(1, 2).transpose(0, 1)
+            output, (hidden_state, hidden_cell) = self.lstm(inp)
+            all_outputs.append(output)
+
+        output = torch.cat(all_outputs, 0)
         return output, hidden_state, hidden_cell
 
 
@@ -60,16 +67,16 @@ class GlobalAttention(nn.Module):
         # (batch, t_len, d) x (batch, d, s_len) --> (batch, t_len, s_len)
         return torch.bmm(h_t, h_s)
 
-    def sequence_mask(self, lengths, max_len=None):
-        """
-        Creates a boolean mask from sequence lengths.
-        """
-        batch_size = lengths.numel()
-        max_len = max_len or lengths.max()
-        return (torch.arange(0, max_len)
-                .type_as(lengths)
-                .repeat(batch_size, 1)
-                .lt(lengths.unsqueeze(1)))
+    # def sequence_mask(self, lengths, max_len=None):
+    #     """
+    #     Creates a boolean mask from sequence lengths.
+    #     """
+    #     batch_size = lengths.numel()
+    #     max_len = max_len or lengths.max()
+    #     return (torch.arange(0, max_len)
+    #             .type_as(lengths)
+    #             .repeat(batch_size, 1)
+    #             .lt(lengths.unsqueeze(1)))
 
     def forward(self, inputs, context, context_lengths):
         """
@@ -118,6 +125,8 @@ class LSTMDecoder(nn.Module):
         # Define LSTM layer
         self.lstm = nn.LSTM(input_dim, hidden_dim, num_layer,
                             bidirectional=bidirectional)
+        if bidirectional:
+            hidden_dim = 2 * hidden_dim
         self.linear_out = nn.Linear(hidden_dim, vocab_size)
         self.attn = GlobalAttention(hidden_dim)
         self.drop = nn.Dropout(dropout)

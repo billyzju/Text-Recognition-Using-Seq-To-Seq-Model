@@ -86,28 +86,27 @@ class VGG(nn.Module):
         super(VGG, self).__init__()
 
         self.features = features
-        self.soft = nn.Linear(62, 100)
+        # self.avgpool = nn.AdaptiveAvgPool2d((1, 30))
 
-        # AdaptiveAvgPool will return fixed size for any input size
-        self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
+        # # AdaptiveAvgPool will return fixed size for any input size
+        # self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
 
-        # Common fully connected layers
-        self.classifier = nn.Sequential(nn.Linear(512 * 7 * 7, 4096),
-                                        nn.ReLU(True),
-                                        nn.Dropout(),
-                                        nn.Linear(4096, 4096),
-                                        nn.ReLU(True),
-                                        nn.Dropout(),
-                                        nn.Linear(4096, num_classes))
+        # # Common fully connected layers
+        # self.classifier = nn.Sequential(nn.Linear(512 * 7 * 7, 4096),
+        #                                 nn.ReLU(True),
+        #                                 nn.Dropout(),
+        #                                 nn.Linear(4096, 4096),
+        #                                 nn.ReLU(True),
+        #                                 nn.Dropout(),
+        #                                 nn.Linear(4096, num_classes))
 
         if init_weights:
             self._initialize_weights()
 
     def forward(self, x):
         x = self.features(x)
-        x = x.view(x.size(0), x.size(1), -1)
-        # x = self.soft(x)
-        x = x.view(x.size(0), -1, x.size(1))
+        # x = self.avgpool(x)
+        # x = x.view(x.size(0), -1, x.size(1))
 
         # x = self.avgpool(x)
         # x = self.classifier(x)

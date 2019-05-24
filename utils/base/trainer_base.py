@@ -11,7 +11,6 @@ import datetime
 import time
 import os
 import tqdm
-from torchsummary import summary
 
 
 # --------------------------------------------------------------------------------
@@ -26,7 +25,7 @@ def logging(train_logger, result, step):
 # 		Class of base for trainer
 # --------------------------------------------------------------------------------
 class TrainerBase:
-    def __init__(self, model, optimizer, config, resume=False,
+    def __init__(self, model, optimizer, config,
                  resume_path=None, train_logger=None, valid_logger=None):
         # Setup directory for checkpoint saving
         self.start_time = datetime.datetime.now().strftime('%m%d_%H%M%S')
@@ -46,7 +45,7 @@ class TrainerBase:
         self.epochs = config['trainer']['epochs']
         self.save_freq = config['trainer']['save_freq']
         self.star_epoch = 1
-        if (resume is True) and (resume_path is not None):
+        if resume_path is not None:
             self._resume_checkpoint(resume_path)
 
     def train(self):

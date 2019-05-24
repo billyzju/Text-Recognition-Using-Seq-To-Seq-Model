@@ -10,6 +10,7 @@ import numpy as np
 import time
 import os
 import torch.nn.functional as F
+from torchsummary import summary
 from utils.ocr_models.lstm_model import LSTMModel
 from utils.data_loaders.iam_data_loader import IAMDataLoader
 from utils.data_loaders.jp_data_loader import JPDataLoader
@@ -24,8 +25,8 @@ parser = argparse.ArgumentParser(description='Training model')
 parser.add_argument('--language', type=str, default='eng',
                     help='Train model for japanese or english')
 
-parser.add_argument('--resume', type=str, default=False,
-                    help='Train model from scratch')
+parser.add_argument('--resume_path', type=str, default=None,
+                    help='Path to checkpoint file to resume')
 
 args = parser.parse_args()
 
@@ -64,9 +65,10 @@ with open(dictionary) as f:
 input_dim = model_config["input_dim"]
 hidden_dim = model_config["hidden_dim"]
 num_layer = model_config["num_layer"]
+bidirectional = model_config["bidirectional"]
 
 model = LSTMModel(input_dim, hidden_dim, num_layer,
-                  bidirectional=False, vocab_size=trg_vocab)
+                  bidirectional=bidirectional, vocab_size=trg_vocab)
 # Init Xavier
 for p in model.parameters():
     if p.dim() > 1:
@@ -84,12 +86,13 @@ valid_logger = Logger("logs/eng/test/valid/")
 # Trainer
 trainer = LSTMTrainer(
     model=model, optimizer=optimizer, data_loader=IAMDataLoader,
-    config=config, resume=False, resume_path=None,
+    config=config, resume_path=args.resume_path,
     train_logger=train_logger, valid_logger=valid_logger,
     labels_train=labels_train, path_images_train=images_train,
     labels_valid=labels_valid, path_images_valid=images_valid,
     path_dictionary=dictionary)
 
+# summary(model, [(1, 224, 224),()])
 # --------------------------------------------------------------------------------
 #       Main
 # --------------------------------------------------------------------------------

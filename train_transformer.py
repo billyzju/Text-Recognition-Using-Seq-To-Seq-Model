@@ -83,7 +83,7 @@ valid_logger = Logger("logs/eng/test/valid/")
 # Trainer
 trainer = TransformerTrainer(
     model=model, optimizer=optimizer, data_loader=IAMDataLoader,
-    config=config, resume=False, resume_path=None,
+    config=config, resume_path=None,
     train_logger=train_logger, valid_logger=valid_logger,
     labels_train=labels_train, path_images_train=images_train,
     labels_valid=labels_valid, path_images_valid=images_valid,

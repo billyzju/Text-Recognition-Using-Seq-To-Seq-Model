@@ -10,13 +10,10 @@ import numpy as np
 import time
 import os
 import tqdm
-import matplotlib.pyplot as plt
 import torch.nn.functional as F
 from torch.autograd import Variable
 from utils.data_processing import create_mask, subsequent_mask
 from utils.metrics import*
-from utils.logger import Logger
-from torchsummary import summary
 from utils.base.trainer_base import TrainerBase
 
 
@@ -25,11 +22,11 @@ from utils.base.trainer_base import TrainerBase
 # --------------------------------------------------------------------------------
 class TransformerTrainer(TrainerBase):
     def __init__(self, model, optimizer, data_loader, config,
-                 resume, resume_path, train_logger, valid_logger, labels_train,
+                 resume_path, train_logger, valid_logger, labels_train,
                  path_images_train, labels_valid, path_images_valid,
                  path_dictionary):
         super(TransformerTrainer, self).__init__(
-                                        model, optimizer, config, resume,
+                                        model, optimizer, config,
                                         resume_path, train_logger,
                                         valid_logger)
         self.config = config

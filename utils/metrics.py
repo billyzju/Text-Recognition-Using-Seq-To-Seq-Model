@@ -20,7 +20,7 @@ def translate(output, predict_target, path_dict_char):
     # Softmax
     output = F.softmax(output, dim=-1)
     index_char = output.max(1)[1]
-    index_char = index_char[:57]
+    index_char = index_char[:58]
     s = "The line is   "
     predict = ""
     for i in index_char:
@@ -31,9 +31,9 @@ def translate(output, predict_target, path_dict_char):
             predict = predict + dict_p_char[int(i)]
     print(s)
 
-    predict_target = predict_target[:57]
+    predict_target = predict_target[:58]
     s = "The target is "
-    target= ""
+    target = ""
     for j in predict_target:
         if j >= len(dict_p_char):
             s = s + '*'
