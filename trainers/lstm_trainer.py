@@ -39,7 +39,7 @@ class LSTMTrainer(TrainerBase):
             path_images=path_images_train, dictionary=path_dictionary, max_len=max_len)
         # Setup data loader for validating
         valid_data_loader = data_loader(
-            config=config, shuffle=True, labels=labels_valid,
+            config=config, shuffle=False, labels=labels_valid,
             path_images=path_images_valid, dictionary=path_dictionary, max_len=max_len)
 
         if train_data_loader is not None:
@@ -94,7 +94,7 @@ class LSTMTrainer(TrainerBase):
             total_loss += loss.item()
             total_acc_char += acc_char
             total_acc_field += acc_field
-
+            break
         total_loss /= len(self.train_data_loader)
         total_acc_char /= len(self.train_data_loader)
         total_acc_field /= len(self.train_data_loader)
@@ -105,7 +105,7 @@ class LSTMTrainer(TrainerBase):
         log = {'train_metrics': train_log}
         if self.valid_logger is not None:
             print("Validating model")
-            valid_log = self._eval_one_epoch()
+            valid_log = self._eval_one_epoch_greedy()
             log['valid_metrics'] = valid_log
 
         return log
@@ -166,44 +166,46 @@ class LSTMTrainer(TrainerBase):
             for batch_idx, (data, target) in valid_pbar:
                 data = data.to(self.device)
                 index_target = target.to(self.device)
-                # predict_target = (index_target[:, 1:].contiguous().view(-1).
-                #                   long())
+                predict_target = index_target[:, 1:].contiguous().view(-1).long()
                 embs = self.model.cnn_model(data)
                 context, hidden_state, hidden_cell = self.model.lstm.encoder(embs)
                 # The character for start of sequence
                 input_target = (torch.ones(self.batch_size, 1).fill_(self.trg_vocab - 2).
                                 type_as(index_target))
-                output_seq = (torch.ones(self.batch_size, 1, self.trg_vocab).
-                              type_as(index_target))
-                for i in range(self.max_len - 1):
+                output_seq = torch.ones(self.batch_size, 1, self.trg_vocab).type_as(index_target)
+                for i in range(self.max_len + 1):
                     # Output of Decoder
-                    output, _ = self.model.lstm.decoder(
-                                    input_target, hidden_state,
-                                    hidden_cell, context,
-                                    context.size(1))
+                    output, (hidden_state, hidden_cell) = self.model.lstm.decoder(
+                                                            input_target, hidden_state,
+                                                            hidden_cell, context,
+                                                            context.size(1))
                     output = output.transpose(0, 1)
                     # Probability of output
                     prob = F.log_softmax(output, dim=-1)
                     # Get index of next word
                     _, next_word = torch.max(prob, dim=-1)
                     next_word = next_word.type_as(index_target)
-                    input_target = torch.cat((input_target, next_word), dim=1)
+                    # input_target = torch.cat((input_target, next_word), dim=1)
+                    input_target = next_word
                     output_seq = torch.cat((output_seq, output), dim=1)
 
                 output = output_seq[:, 1:, :]
-
+                # Cross entropy loss
+                loss = F.cross_entropy(output.contiguous().view(-1, output.size(-1)),
+                                       predict_target.long())
                 # Metrics
                 acc_char = accuracy_char_2(output, index_target[:, 1:].long())
                 acc_field = accuracy_word(output, index_target[:, 1:].long())
 
+                total_loss += loss.item()
                 total_acc_char += acc_char
                 total_acc_field += acc_field
-                print(total_acc_char / (batch_idx + 1), total_acc_field / (batch_idx + 1))
 
             total_loss /= len(self.valid_data_loader)
             total_acc_char /= len(self.valid_data_loader)
             total_acc_field /= len(self.valid_data_loader)
 
-            valid_log = {'acc_char': total_acc_char,
+            valid_log = {'loss': total_loss,
+                         'acc_char': total_acc_char,
                          'acc_field': total_acc_field}
         return valid_log
