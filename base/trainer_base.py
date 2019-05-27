@@ -122,6 +122,6 @@ class TrainerBase:
             print("Warning: Architecture configuration given in config file "
                   "is different from that of checkpoint. This may yield an "
                   "exception while state_dict is being loaded.")
-        self.model.load_state_dict(checkpoint['state_dict'])
+        self.model.load_state_dict(checkpoint['state_dict'], strict=True)
         print("Checkpoint loaded. Resume training from epoch {}"
               .format(self.start_epoch))

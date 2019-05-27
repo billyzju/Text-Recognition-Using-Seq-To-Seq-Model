@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="722f96ac-7346-4d2e-8a3d-17a6b20a9b52" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/trainer_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/trainer_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config_lstm.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config_lstm.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_lstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_lstm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainers/lstm_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainers/lstm_trainer.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +18,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_lstm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="24" column="60" lean-forward="true" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
+            <state relative-caret-position="221">
+              <caret line="71" column="21" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
               <folding>
                 <element signature="e#177#189#0" expanded="true" />
               </folding>
@@ -26,10 +28,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="591">
+              <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainers/lstm_trainer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="602">
-              <caret line="207" column="44" selection-start-line="207" selection-start-column="44" selection-end-line="207" selection-end-column="44" />
+            <state relative-caret-position="184">
+              <caret line="66" column="44" selection-start-line="66" selection-start-column="44" selection-end-line="66" selection-end-column="44" />
               <folding>
                 <element signature="e#177#189#0" expanded="true" />
               </folding>
@@ -38,25 +49,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ocr_models/language_models/kan_lstm.py">
+        <entry file="file://$PROJECT_DIR$/base/trainer_base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="238" column="45" selection-start-line="238" selection-start-column="45" selection-end-line="238" selection-end-column="45" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1625">
-              <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
-              <folding>
-                <element signature="e#177#187#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2038">
+              <caret line="124" column="72" selection-start-line="124" selection-start-column="72" selection-end-line="124" selection-end-column="72" />
             </state>
           </provider>
         </entry>
@@ -85,8 +81,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ocr_models/language_models/lstm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1138">
-              <caret line="171" column="33" selection-start-line="171" selection-start-column="33" selection-end-line="171" selection-end-column="33" />
+            <state relative-caret-position="-2075">
+              <caret line="42" column="47" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
               <folding>
                 <element signature="e#177#189#0" expanded="true" />
               </folding>
@@ -112,16 +108,17 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/train_lstm.py" />
         <option value="$PROJECT_DIR$/preprocessing_data/eng/images_valid.txt" />
         <option value="$PROJECT_DIR$/preprocessing_data/eng/images_train.txt" />
         <option value="$PROJECT_DIR$/preprocessing_data/eng/images_test.txt" />
         <option value="$PROJECT_DIR$/utils/data_processing.py" />
         <option value="$PROJECT_DIR$/data_loaders/iam_data_loader.py" />
-        <option value="$PROJECT_DIR$/config/config_lstm.json" />
         <option value="$PROJECT_DIR$/ocr_models/lstm_model.py" />
         <option value="$PROJECT_DIR$/ocr_models/language_models/lstm.py" />
+        <option value="$PROJECT_DIR$/base/trainer_base.py" />
+        <option value="$PROJECT_DIR$/train_lstm.py" />
         <option value="$PROJECT_DIR$/trainers/lstm_trainer.py" />
+        <option value="$PROJECT_DIR$/config/config_lstm.json" />
       </list>
     </option>
   </component>
@@ -147,11 +144,6 @@
               <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
               <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
               <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -291,14 +283,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
+    <entry file="file://$PROJECT_DIR$/ocr_models/language_models/kan_lstm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1625">
-          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+        <state relative-caret-position="463">
+          <caret line="238" column="45" selection-start-line="238" selection-start-column="45" selection-end-line="238" selection-end-column="45" />
           <folding>
-            <element signature="e#177#187#0" expanded="true" />
+            <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainers/transformer_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3413" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/data_processing.py">
@@ -308,13 +305,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ocr_models/language_models/kan_lstm.py">
+    <entry file="file://$PROJECT_DIR$/preprocessing_data/jp/dict_word.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessing_data/eng/dict_char.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="238" column="45" selection-start-line="238" selection-start-column="45" selection-end-line="238" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-900" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="75">
+            <caret line="3" column="32" selection-start-line="3" selection-start-column="32" selection-end-line="3" selection-end-column="32" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
@@ -328,32 +333,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="788">
+          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+          <folding>
+            <element signature="e#177#187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/trainer_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2038">
+          <caret line="124" column="72" selection-start-line="124" selection-start-column="72" selection-end-line="124" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ocr_models/language_models/lstm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1138">
-          <caret line="171" column="33" selection-start-line="171" selection-start-column="33" selection-end-line="171" selection-end-column="33" />
+        <state relative-caret-position="-2075">
+          <caret line="42" column="47" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
           <folding>
             <element signature="e#177#189#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trainers/transformer_trainer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3413" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train_lstm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="24" column="60" lean-forward="true" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
+        <state relative-caret-position="221">
+          <caret line="71" column="21" selection-start-line="71" selection-start-column="21" selection-end-line="71" selection-end-column="21" />
           <folding>
             <element signature="e#177#189#0" expanded="true" />
           </folding>
@@ -362,11 +372,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trainers/lstm_trainer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="602">
-          <caret line="207" column="44" selection-start-line="207" selection-start-column="44" selection-end-line="207" selection-end-column="44" />
+        <state relative-caret-position="184">
+          <caret line="66" column="44" selection-start-line="66" selection-start-column="44" selection-end-line="66" selection-end-column="44" />
           <folding>
             <element signature="e#177#189#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="591">
+          <caret line="47" column="22" selection-start-line="47" selection-start-column="22" selection-end-line="47" selection-end-column="22" />
         </state>
       </provider>
     </entry>

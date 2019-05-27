@@ -45,8 +45,8 @@
     "model": {
         "input_dim": 512,
         "hidden_dim": 256,
-        "num_layer":1,
-        "bidirectional":true,
+        "num_layer":16,
+        "bidirectional":false,
         "max_len": 25
     }
 

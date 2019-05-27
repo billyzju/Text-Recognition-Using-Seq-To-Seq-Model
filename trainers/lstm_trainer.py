@@ -88,13 +88,13 @@ class LSTMTrainer(TrainerBase):
             # Metrics
             acc_char = accuracy_char_2(output, index_target[:, 1:].long())
             acc_field = accuracy_word(output, index_target[:, 1:].long())
-            # translate(output.contiguous().view(-1, output.size(-1)),
-            #           predict_target, self.path_dict)
+            translate(output.contiguous().view(-1, output.size(-1)),
+                      predict_target, self.path_dict)
 
             total_loss += loss.item()
             total_acc_char += acc_char
             total_acc_field += acc_field
-            break
+
         total_loss /= len(self.train_data_loader)
         total_acc_char /= len(self.train_data_loader)
         total_acc_field /= len(self.train_data_loader)
@@ -160,8 +160,8 @@ class LSTMTrainer(TrainerBase):
         total_acc_char = 0
         total_acc_field = 0
 
-        n_iter = len(self.valid_data_loader)
-        valid_pbar = tqdm.tqdm(enumerate(self.valid_data_loader), total=n_iter)
+        n_iter = len(self.train_data_loader)
+        valid_pbar = tqdm.tqdm(enumerate(self.train_data_loader), total=n_iter)
         with torch.no_grad():
             for batch_idx, (data, target) in valid_pbar:
                 data = data.to(self.device)
@@ -172,13 +172,14 @@ class LSTMTrainer(TrainerBase):
                 # The character for start of sequence
                 input_target = (torch.ones(self.batch_size, 1).fill_(self.trg_vocab - 2).
                                 type_as(index_target))
+                # Temporary output
                 output_seq = torch.ones(self.batch_size, 1, self.trg_vocab).type_as(index_target)
                 for i in range(self.max_len + 1):
                     # Output of Decoder
-                    output, (hidden_state, hidden_cell) = self.model.lstm.decoder(
-                                                            input_target, hidden_state,
-                                                            hidden_cell, context,
-                                                            context.size(1))
+                    output, _ = self.model.lstm.decoder(
+                                                        input_target, hidden_state,
+                                                        hidden_cell, context,
+                                                        context.size(1))
                     output = output.transpose(0, 1)
                     # Probability of output
                     prob = F.log_softmax(output, dim=-1)
