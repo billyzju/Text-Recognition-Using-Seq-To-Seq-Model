@@ -5,8 +5,8 @@ import torch
 import torch.nn as nn
 import torchvision
 from torch.autograd import Variable
-from utils.ocr_models.language_models.lstm import LSTM
-from utils.ocr_models.backbones.vgg16 import vgg16
+from ocr_models.language_models.lstm import LSTM
+from ocr_models.backbones.vgg16 import vgg16
 
 
 # --------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ class LSTMModel(nn.Module):
 
     def forward(self, src, trg):
         """
-        src: (batch_size, 1, heigth, width)
+        src: (batch_size, 1, height, width)
         trg: (batch_size, decoder_seq_len)
         """
         src = self.cnn_model(src)

@@ -10,28 +10,26 @@ from torch.autograd import Variable
 # --------------------------------------------------------------------------------
 #       Funcs
 # --------------------------------------------------------------------------------
-def get_emb(dict_char, line, max_seq_len):
+def get_emb(dictionary, label, max_len):
     """
-    Create embdding for target from dictionary
+    Get index for target from dictionary
     """
-    start_char = len(dict_char)
+    # The index of start character and stop one
+    start_char = len(dictionary)
     stop_char = start_char + 1
+    label_index= []
+    label_index.append(start_char)
 
-    label = []
-    label.append(start_char)
+    for i in range(len(label)):
+        index = dictionary.index(label[i])
+        label_index.append(index)
 
-    for i in range(len(line)):
-        index = dict_char.index(line[i])
-        label.append(index)
-
-    label.append(stop_char)
+    label_index.append(stop_char)
 
     # Padding label
-    pad_char = len(dict_char) - 1
-    line_pad = [pad_char] * max_seq_len
-    line_pad[0:len(label)] = label[:]
-    # pad = (max_seq_len - len(label)) // 2
-    # line_pad[pad:(pad + len(label))] = label[:]
+    pad_char = len(dictionary) - 1
+    line_pad = [pad_char] * max_len
+    line_pad[0:len(label)] = label_index[:]
 
     return line_pad
 

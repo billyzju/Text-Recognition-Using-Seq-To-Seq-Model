@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torchvision
 import torch.nn.functional as F
-from utils.ocr_models.language_models.sublayers import Embedder
+from ocr_models.language_models.sublayers import Embedder
 
 
 # --------------------------------------------------------------------------------

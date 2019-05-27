@@ -1,6 +1,6 @@
 {
     "data_eng": {
-        "path_data": "E:/data/OCR/iam",
+        "path_data": "/home/thiendt/Projects/data/OCR/data/iam/",
         "path_preprocessing_files": "preprocessing_data/eng/", 
         "file_dict": "dict_char.txt",
 
@@ -46,7 +46,8 @@
         "input_dim": 512,
         "hidden_dim": 256,
         "num_layer":1,
-        "bidirectional":true
+        "bidirectional":true,
+        "max_len": 25
     }
 
 }

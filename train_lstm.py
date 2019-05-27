@@ -3,19 +3,16 @@
 # --------------------------------------------------------------------------------
 import torch
 import torch.nn as nn
-import torchvision
 import argparse
 import json
 import numpy as np
-import time
 import os
-import torch.nn.functional as F
 from torchsummary import summary
-from utils.ocr_models.lstm_model import LSTMModel
-from utils.data_loaders.iam_data_loader import IAMDataLoader
-from utils.data_loaders.jp_data_loader import JPDataLoader
+from ocr_models.lstm_model import LSTMModel
+from data_loaders.iam_data_loader import IAMDataLoader
+from data_loaders.jp_data_loader import JPDataLoader
 from utils.logger import Logger
-from utils.trainers.lstm_trainer import LSTMTrainer
+from trainers.lstm_trainer import LSTMTrainer
 
 
 # --------------------------------------------------------------------------------
@@ -66,6 +63,7 @@ input_dim = model_config["input_dim"]
 hidden_dim = model_config["hidden_dim"]
 num_layer = model_config["num_layer"]
 bidirectional = model_config["bidirectional"]
+max_len = model_config["max_len"]
 
 model = LSTMModel(input_dim, hidden_dim, num_layer,
                   bidirectional=bidirectional, vocab_size=trg_vocab)
@@ -90,7 +88,7 @@ trainer = LSTMTrainer(
     train_logger=train_logger, valid_logger=valid_logger,
     labels_train=labels_train, path_images_train=images_train,
     labels_valid=labels_valid, path_images_valid=images_valid,
-    path_dictionary=dictionary)
+    path_dictionary=dictionary, max_len=max_len, trg_vocab=trg_vocab)
 
 # summary(model, [(1, 224, 224),()])
 # --------------------------------------------------------------------------------

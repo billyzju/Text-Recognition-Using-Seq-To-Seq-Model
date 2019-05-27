@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="722f96ac-7346-4d2e-8a3d-17a6b20a9b52" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Text-Recognition-Using-Seq-To-Seq-Model.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config_lstm.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config_lstm.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocessing_data/eng/images_test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/preprocessing_data/eng/images_test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocessing_data/eng/images_train.txt" beforeDir="false" afterPath="$PROJECT_DIR$/preprocessing_data/eng/images_train.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/preprocessing_data/eng/images_valid.txt" beforeDir="false" afterPath="$PROJECT_DIR$/preprocessing_data/eng/images_valid.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train_lstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_lstm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/base/data_loader_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/base/dataset_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/base/trainer_base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_loaders/iam_data_loader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_loaders/jp_data_loader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/data_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/data_processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/backbones/mobilenetv2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/backbones/resnet.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/backbones/vgg16.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/language_models/kan_lstm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/language_models/lstm.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/language_models/sublayers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/language_models/transformer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/lstm_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/ocr_models/transformer_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/trainers/lstm_trainer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/trainers/transformer_trainer.py" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/train_lstm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="438">
+              <caret line="45" column="38" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
+              <folding>
+                <element signature="e#177#189#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trainers/lstm_trainer.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1963">
+              <caret line="92" selection-start-line="92" selection-end-line="92" />
+              <folding>
+                <element signature="e#177#189#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1663">
+              <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+              <folding>
+                <element signature="e#177#187#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/utils/data_processing.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="600">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ocr_models/lstm_model.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="500">
+              <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+              <folding>
+                <element signature="e#177#189#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ocr_models/language_models/lstm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="175">
+              <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>\</find>
+      <find>self.batch_size</find>
+      <find>batch_idx</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>/</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/train_lstm.py" />
+        <option value="$PROJECT_DIR$/preprocessing_data/eng/images_valid.txt" />
+        <option value="$PROJECT_DIR$/preprocessing_data/eng/images_train.txt" />
+        <option value="$PROJECT_DIR$/preprocessing_data/eng/images_test.txt" />
+        <option value="$PROJECT_DIR$/ocr_models/lstm_model.py" />
+        <option value="$PROJECT_DIR$/ocr_models/language_models/lstm.py" />
+        <option value="$PROJECT_DIR$/utils/data_processing.py" />
+        <option value="$PROJECT_DIR$/data_loaders/iam_data_loader.py" />
+        <option value="$PROJECT_DIR$/config/config_lstm.json" />
+        <option value="$PROJECT_DIR$/trainers/lstm_trainer.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="260" />
+    <option name="y" value="54" />
+    <option name="width" value="1400" />
+    <option name="height" value="941" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
+              <item name="preprocessing_data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
+              <item name="preprocessing_data" type="462c0819:PsiDirectoryNode" />
+              <item name="eng" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
+              <item name="trainers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="train_lstm" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Text-Recognition-Using-Seq-To-Seq-Model" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train_lstm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.train_lstm" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="722f96ac-7346-4d2e-8a3d-17a6b20a9b52" name="Default Changelist" comment="" />
+      <created>1558719766811</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1558719766811</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="67" y="32" width="1853" height="1048" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12493151" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32925472" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3297362" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3297362" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/train_transformer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="42" column="31" selection-start-line="42" selection-start-column="31" selection-end-line="42" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/trainers/lstm_trainer.py" />
+    <entry file="file://$PROJECT_DIR$/utils/data_loaders/iam_data_loader.py" />
+    <entry file="file://$PROJECT_DIR$/data_loaders/jp_data_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#177#187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessing_data/eng/images_train.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="9" column="35" lean-forward="true" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessing_data/eng/images_test.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287675">
+          <caret line="11531" column="19" selection-start-line="11531" selection-start-column="19" selection-end-line="11531" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessing_data/eng/images_valid.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="552" column="37" lean-forward="true" selection-start-line="552" selection-start-column="37" selection-end-line="552" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/preprocessing_data/eng/labels_test.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$USER_HOME$/.virtualenvs/text_recognition/lib/python3.6/site-packages/torch/utils/data/dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/data_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ocr_models/lstm_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <folding>
+            <element signature="e#177#189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ocr_models/language_models/lstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="7" column="5" selection-start-line="7" selection-start-column="5" selection-end-line="7" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="46" column="25" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1663">
+          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+          <folding>
+            <element signature="e#177#187#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainers/lstm_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1963">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+          <folding>
+            <element signature="e#177#189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_lstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="45" column="38" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
+          <folding>
+            <element signature="e#177#189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
