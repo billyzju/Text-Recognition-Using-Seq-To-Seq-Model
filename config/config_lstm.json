@@ -1,6 +1,6 @@
 {
     "data_eng": {
-        "path_data": "/home/thiendt/Projects/data/OCR/data/iam/",
+        "path_data": "E:/data/OCR/iam/",
         "path_preprocessing_files": "preprocessing_data/eng/", 
         "file_dict": "dict_char.txt",
 
@@ -34,7 +34,7 @@
 
     "trainer": {
         "epochs": 50,
-        "batch_size": 1,
+        "batch_size": 16,
         "lr": 0.001,
         "n_gpu": 1,
         "checkpoint": "checkpoints/",
@@ -44,9 +44,11 @@
 
     "model": {
         "input_dim": 512,
-        "hidden_dim": 256,
-        "num_layer":16,
-        "bidirectional":false,
+        "enc_hidden_dim": 256,
+        "num_layer":1,
+        "enc_bidirectional": true,
+        "dec_hidden_dim": 512,
+        "dec_bidirectional": false,
         "max_len": 25
     }
 

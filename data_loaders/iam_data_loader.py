@@ -41,7 +41,7 @@ class IAMDataset(Dataset):
 
         self.images = []
         self.labels = []
-        self.path_to_data = "/home/thiendt/Projects/data/OCR/data/iam/"
+        self.path_to_data = "E:/data/OCR/iam/"
         num_images = np.shape(labels)[0]
 
         # Pre-processing target labels before data loader

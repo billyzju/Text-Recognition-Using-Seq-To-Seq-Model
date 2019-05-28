@@ -13,13 +13,15 @@ from ocr_models.backbones.vgg16 import vgg16
 #       Classes
 # --------------------------------------------------------------------------------
 class LSTMModel(nn.Module):
-    def __init__(self, input_dim, hidden_dim,
-                 num_layer, bidirectional, vocab_size):
+    def __init__(self, input_dim, enc_hidden_dim,
+                 enc_bidirectional, dec_hidden_dim,
+                 dec_bidirectional, num_layer, vocab_size):
         super(LSTMModel, self).__init__()
 
         self.cnn_model = vgg16()
-        self.lstm = LSTM(input_dim, hidden_dim,
-                         num_layer, bidirectional, vocab_size)
+        self.lstm = LSTM(input_dim, enc_hidden_dim,
+                         enc_bidirectional, dec_hidden_dim,
+                         dec_bidirectional, num_layer, vocab_size)
 
     def forward(self, src, trg):
         """

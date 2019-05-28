@@ -142,9 +142,9 @@ class LSTMDecoder(nn.Module):
         emb = self.drop(emb)
         emb = emb.transpose(0, 1)
         decoder_unpacked, decoder_hidden = self.lstm(
-                                            emb,
-                                            (init_hidden_state,
-                                             init_hidden_cell))
+                                            emb)
+                                            # (init_hidden_state,
+                                            #  init_hidden_cell))
         attn_outputs, attn_scores = self.attn(
             # (len, batch, d) -> (batch, len, d)
             decoder_unpacked.transpose(0, 1).contiguous(),
@@ -157,14 +157,15 @@ class LSTMDecoder(nn.Module):
 
 
 class LSTM(nn.Module):
-    def __init__(self, input_dim, hidden_dim,
-                 num_layer, bidirectional, vocab_size):
+    def __init__(self, input_dim, enc_hidden_dim,
+                 enc_bidirectional, dec_hidden_dim,
+                 dec_bidirectional, num_layer, vocab_size):
         super(LSTM, self).__init__()
 
-        self.encoder = LSTMEncoder(input_dim, hidden_dim,
-                                   num_layer, bidirectional)
-        self.decoder = LSTMDecoder(vocab_size, input_dim, hidden_dim,
-                                   num_layer, bidirectional)
+        self.encoder = LSTMEncoder(input_dim, enc_hidden_dim,
+                                   num_layer, enc_bidirectional)
+        self.decoder = LSTMDecoder(vocab_size, input_dim, dec_hidden_dim,
+                                   num_layer, dec_bidirectional)
 
     def forward(self, src, trg):
         context, hidden_state, hidden_cell = self.encoder(src)

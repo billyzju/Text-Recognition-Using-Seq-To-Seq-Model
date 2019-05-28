@@ -60,17 +60,20 @@ with open(dictionary) as f:
 
 # Define model
 input_dim = model_config["input_dim"]
-hidden_dim = model_config["hidden_dim"]
+enc_hidden_dim = model_config["enc_hidden_dim"]
+enc_bidirectional = model_config["enc_bidirectional"]
+dec_hidden_dim = model_config["dec_hidden_dim"]
+dec_bidirectional = model_config["dec_bidirectional"]
 num_layer = model_config["num_layer"]
-bidirectional = model_config["bidirectional"]
 max_len = model_config["max_len"]
 
-model = LSTMModel(input_dim, hidden_dim, num_layer,
-                  bidirectional=bidirectional, vocab_size=trg_vocab)
-# # Init Xavier
-# for p in model.parameters():
-#     if p.dim() > 1:
-#         nn.init.xavier_uniform_(p)
+model = LSTMModel(input_dim, enc_hidden_dim, enc_bidirectional,
+                  dec_hidden_dim, dec_bidirectional, num_layer,
+                  trg_vocab)
+# Init Xavier
+for p in model.parameters():
+    if p.dim() > 1:
+        nn.init.xavier_uniform_(p)
 
 # Define optimizer
 optimizer = torch.optim.Adam(model.parameters(),
