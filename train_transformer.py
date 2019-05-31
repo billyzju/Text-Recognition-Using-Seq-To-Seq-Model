@@ -10,10 +10,10 @@ import numpy as np
 import time
 import os
 import torch.nn.functional as F
-from utils.ocr_models.transformer_model import TransformerModel
-from utils.trainers.transformer_trainer import TransformerTrainer
-from utils.data_loaders.iam_data_loader import IAMDataLoader
-from utils.data_loaders.jp_data_loader import JPDataLoader
+from ocr_models.transformer_model import TransformerModel
+from trainers.transformer_trainer import TransformerTrainer
+from data_loaders.iam_data_loader import IAMDataLoader
+from data_loaders.jp_data_loader import JPDataLoader
 from utils.logger import Logger
 
 
@@ -64,12 +64,13 @@ with open(dictionary) as f:
 d_model = model_config["d_model"]
 heads = model_config["heads"]
 N = model_config["N"]
+max_len = model_config["max_len"]
 
 model = TransformerModel(trg_vocab, d_model, N, heads)
-# Init Xavier
-for p in model.parameters():
-    if p.dim() > 1:
-        nn.init.xavier_uniform_(p)
+# # Init Xavier
+# for p in model.parameters():
+#     if p.dim() > 1:
+#         nn.init.xavier_uniform_(p)
 
 # Define optimizer
 optimizer = torch.optim.Adam(model.parameters(),
@@ -87,7 +88,7 @@ trainer = TransformerTrainer(
     train_logger=train_logger, valid_logger=valid_logger,
     labels_train=labels_train, path_images_train=images_train,
     labels_valid=labels_valid, path_images_valid=images_valid,
-    path_dictionary=dictionary)
+    path_dictionary=dictionary, max_len=max_len, trg_vocab=trg_vocab)
 
 # --------------------------------------------------------------------------------
 #       Main

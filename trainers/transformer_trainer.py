@@ -14,7 +14,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from utils.data_processing import create_mask, subsequent_mask
 from utils.metrics import*
-from utils.base.trainer_base import TrainerBase
+from base.trainer_base import TrainerBase
 
 
 # --------------------------------------------------------------------------------
@@ -24,27 +24,29 @@ class TransformerTrainer(TrainerBase):
     def __init__(self, model, optimizer, data_loader, config,
                  resume_path, train_logger, valid_logger, labels_train,
                  path_images_train, labels_valid, path_images_valid,
-                 path_dictionary):
+                 path_dictionary, max_len, trg_vocab):
         super(TransformerTrainer, self).__init__(
                                         model, optimizer, config,
                                         resume_path, train_logger,
                                         valid_logger)
         self.config = config
         batch_size = config['trainer']['batch_size']
-        # Setup dataloader for training
+        self.max_len = max_len
+        self.trg_vocab = trg_vocab
+        # Setup data loader for training
         train_data_loader = data_loader(
-            batch_size, True, labels_train, path_images_train,
-            path_dictionary, 25, None)
-        # Setup dataloader for validating
+            batch_size=batch_size, shuffle=True, labels=labels_train,
+            path_images=path_images_train, dictionary=path_dictionary, max_len=max_len)
+        # Setup data loader for validating
         valid_data_loader = data_loader(
-            batch_size, False, labels_valid, path_images_valid,
-            path_dictionary, 25, None)
+            batch_size=1, shuffle=False, labels=labels_valid,
+            path_images=path_images_valid, dictionary=path_dictionary, max_len=max_len)
 
         if train_data_loader is not None:
-            print("Load data for train ----------------------------------")
+            print("Load data for train ...")
             self.train_data_loader = train_data_loader.loader()
         if valid_data_loader is not None:
-            print("Load data for valid ----------------------------------")
+            print("Load data for valid ...")
             self.valid_data_loader = valid_data_loader.loader()
 
     def _train_one_epoch(self, epoch):

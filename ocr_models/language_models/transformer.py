@@ -4,11 +4,9 @@
 import torch
 import torch.nn as nn
 import torchvision
-from utils.language_models.sublayers import MultiHeadAttention
-from utils.language_models.sublayers import FeedForward
-from utils.language_models.sublayers import Norm
-from utils.language_models.sublayers import PositionalEncoder
-from utils.language_models.sublayers import Embedder
+from ocr_models.language_models.sublayers import MultiHeadAttention, Norm,\
+                                                 FeedForward, PositionalEncoder,\
+                                                 Embedder
 import copy
 
 
@@ -26,15 +24,11 @@ def get_clones(module, N):
 #       Classes
 # --------------------------------------------------------------------------------
 class EncoderLayer(nn.Module):
-    """
-    Encoder layer is one element of Transformer Encoder
-    It contains two main sublayers which are attention and feedforward
-    """
     def __init__(self, d_model, heads, dropout=0.1):
         """
-        Input:
-        d_model is length of vector of embeddings
-        heads is number of heads for MultiHeadAttetion
+        :param d_model:
+        :param heads:
+        :param dropout:
         """
         super(EncoderLayer, self).__init__()
 
@@ -51,9 +45,9 @@ class EncoderLayer(nn.Module):
 
     def forward(self, x, mask):
         """
-        Input:
-        x is the embs
-        mask is the mask of sequence after adding padding
+        :param x:
+        :param mask:
+        :return:
         """
         x_norm = self.norm_1(x)
         x = x + self.dropout_1(self.attn(x_norm, x_norm, x_norm, mask))
@@ -63,9 +57,6 @@ class EncoderLayer(nn.Module):
 
 
 class DecoderLayer(nn.Module):
-    """
-    Decoder layer is one element of Transformer Decoder
-    """
     def __init__(self, d_model, heads, dropout=0.1):
         super(DecoderLayer, self).__init__()
 
@@ -83,11 +74,11 @@ class DecoderLayer(nn.Module):
 
     def forward(self, x, e_outputs, src_mask, trg_mask):
         """
-        Input:
-        x is target embedding
-        e_outputs is output of Encoder
-        src_mask is the mask from source
-        trg_mask is target mask
+        :param x:
+        :param e_outputs:
+        :param src_mask:
+        :param trg_mask:
+        :return:
         """
         x_norm = self.norm_1(x)
         # Self attention
@@ -103,11 +94,6 @@ class DecoderLayer(nn.Module):
 
 
 class TransformerEncoder(nn.Module):
-    """
-    Encoder of Transformer
-    Embeddings is obtained by CNN and feedforward to Encoder row by row
-    Moreover, Positional encoding is add into embs
-    """
     def __init__(self, d_model, N, heads, max_seq_len):
         super(TransformerEncoder, self).__init__()
 
@@ -118,6 +104,11 @@ class TransformerEncoder(nn.Module):
         self.norm = Norm(d_model)
 
     def forward(self, src, mask):
+        """
+        :param src:
+        :param mask:
+        :return:
+        """
         """
         Input:
         src is embedings from CNN
@@ -143,6 +134,13 @@ class TransformerDecoder(nn.Module):
 
     def forward(self, trg, e_outputs, src_mask, trg_mask):
         """
+        :param trg:
+        :param e_outputs:
+        :param src_mask:
+        :param trg_mask:
+        :return:
+        """
+        """
         Input:
         trg is output embedding in Transformer paper, it also is the
         previous outputs
@@ -155,9 +153,6 @@ class TransformerDecoder(nn.Module):
 
 
 class Transformer(nn.Module):
-    """
-    The final model for Transformer
-    """
     def __init__(self, trg_vocab, d_model, N, heads, max_seq_len):
         super(Transformer, self).__init__()
 

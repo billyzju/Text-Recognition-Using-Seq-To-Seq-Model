@@ -46,7 +46,7 @@ def make_layers(cfg, batch_norm=False):
     """ Make layers for all VGG version from config
     """
     layers = []
-    in_channels = 3
+    in_channels = 1
     for v in cfg:
         if v == 'M':
             # Add MaxPool2x layer if config have 'M'
@@ -87,7 +87,7 @@ class VGG(nn.Module):
         super(VGG, self).__init__()
 
         self.features = features
-        self.avgpool = nn.AdaptiveAvgPool2d((1, 30))
+        self.avgpool = nn.AdaptiveAvgPool2d((1, None))
 
         # # AdaptiveAvgPool will return fixed size for any input size
         # self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
@@ -107,10 +107,7 @@ class VGG(nn.Module):
     def forward(self, x):
         x = self.features(x)
         x = self.avgpool(x)
-        # x = x.view(x.size(0), -1, x.size(1))
-
-        # x = self.avgpool(x)
-        # x = self.classifier(x)
+        x = x.view(x.size(0), -1, x.size(1))
         return x
 
     def _initialize_weights(self):

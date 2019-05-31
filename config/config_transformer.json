@@ -45,7 +45,8 @@
     "model": {
         "d_model": 512,
         "heads": 8,
-        "N": 6
+        "N": 6,
+        "max_len": 25
     }
 
 }

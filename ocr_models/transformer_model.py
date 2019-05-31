@@ -5,8 +5,8 @@ import torch
 import torch.nn as nn
 import torchvision
 from torch.autograd import Variable
-from utils.ocr_models.language_models.transformer import Transformer
-from utils.ocr_models.backbones.vgg16 import vgg16
+from ocr_models.language_models.transformer import Transformer
+from ocr_models.backbones.vgg16 import vgg16
 from utils.data_processing import subsequent_mask
 
 

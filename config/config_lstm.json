@@ -1,6 +1,6 @@
 {
     "data_eng": {
-        "path_data": "E:/data/OCR/iam/",
+        "path_data": "/home/thiendt/Projects/data/OCR/data/iam/",
         "path_preprocessing_files": "preprocessing_data/eng/", 
         "file_dict": "dict_char.txt",
 
