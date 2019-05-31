@@ -34,7 +34,7 @@
 
     "trainer": {
         "epochs": 50,
-        "batch_size": 16,
+        "batch_size": 1,
         "lr": 0.001,
         "n_gpu": 1,
         "checkpoint": "checkpoints/",

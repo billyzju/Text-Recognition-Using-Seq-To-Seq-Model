@@ -21,10 +21,6 @@ class LSTMEncoder(nn.Module):
                             bidirectional=bidirectional)
 
     def forward(self, src):
-        # Input size of LSTM  = [seq_length, batch_size, embed_length]
-        # Output of LSTM contains output with size
-        # (seq_len, batch, num_directions * hidden_size) and hidden state
-        # at t = seq_length
 
         all_outputs = []
         for row in range(src.size(2)):
@@ -34,6 +30,7 @@ class LSTMEncoder(nn.Module):
             all_outputs.append(output)
 
         output = torch.cat(all_outputs, 0)
+
         return output, hidden_state, hidden_cell
 
 
@@ -67,17 +64,6 @@ class GlobalAttention(nn.Module):
         # (batch, t_len, d) x (batch, d, s_len) --> (batch, t_len, s_len)
         return torch.bmm(h_t, h_s)
 
-    # def sequence_mask(self, lengths, max_len=None):
-    #     """
-    #     Creates a boolean mask from sequence lengths.
-    #     """
-    #     batch_size = lengths.numel()
-    #     max_len = max_len or lengths.max()
-    #     return (torch.arange(0, max_len)
-    #             .type_as(lengths)
-    #             .repeat(batch_size, 1)
-    #             .lt(lengths.unsqueeze(1)))
-
     def forward(self, inputs, context, context_lengths):
         """
         input (FloatTensor): batch x tgt_len x dim: decoder's rnn's output
@@ -87,12 +73,6 @@ class GlobalAttention(nn.Module):
         # (batch, tgt_len, src_len)
         align = self.score(inputs, context)
         batch, tgt_len, src_len = align.size()
-        # mask = self.sequence_mask(context_lengths)
-        # # (batch, 1, src_len)
-        # mask = mask.unsqueeze(1)  # Make it broadcastable.
-        # if next(self.parameters()).is_cuda:
-        #     mask = mask.cuda()
-        # align.data.masked_fill_(1 - mask, -float('inf')) # fill <pad> with -inf
         align_vectors = self.softmax(align.view(batch * tgt_len, src_len))
         align_vectors = align_vectors.view(batch, tgt_len, src_len)
 
@@ -125,8 +105,6 @@ class LSTMDecoder(nn.Module):
         # Define LSTM layer
         self.lstm = nn.LSTM(input_dim, hidden_dim, num_layer,
                             bidirectional=bidirectional)
-        if bidirectional:
-            hidden_dim = 2 * hidden_dim
         self.linear_out = nn.Linear(hidden_dim, vocab_size)
         self.attn = GlobalAttention(hidden_dim)
         self.drop = nn.Dropout(dropout)
@@ -142,9 +120,9 @@ class LSTMDecoder(nn.Module):
         emb = self.drop(emb)
         emb = emb.transpose(0, 1)
         decoder_unpacked, decoder_hidden = self.lstm(
-                                            emb)
-                                            # (init_hidden_state,
-                                            #  init_hidden_cell))
+                                            emb,
+                                            (init_hidden_state,
+                                             init_hidden_cell))
         attn_outputs, attn_scores = self.attn(
             # (len, batch, d) -> (batch, len, d)
             decoder_unpacked.transpose(0, 1).contiguous(),
@@ -169,7 +147,16 @@ class LSTM(nn.Module):
 
     def forward(self, src, trg):
         context, hidden_state, hidden_cell = self.encoder(src)
+        hidden_state, hidden_cell = self.init_decoder(hidden_state, hidden_cell)
         output, _ = self.decoder(trg, hidden_state, hidden_cell, context,
                                  context.size(1))
 
         return output
+
+    def init_decoder(self, enc_hidden_state, enc_hidden_cell):
+        direc, batch_size, enc_dim = enc_hidden_state.size()
+        enc_hidden_state = enc_hidden_state.contiguous().view(1, batch_size, -1)
+        enc_hidden_cell = enc_hidden_cell.contiguous().view(1, batch_size, -1)
+
+        return enc_hidden_state, enc_hidden_cell
+

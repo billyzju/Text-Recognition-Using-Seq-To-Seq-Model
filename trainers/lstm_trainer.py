@@ -88,8 +88,9 @@ class LSTMTrainer(TrainerBase):
             # Metrics
             acc_char = accuracy_char_2(output, index_target[:, 1:].long())
             acc_field = accuracy_word(output, index_target[:, 1:].long())
-            # translate(output.contiguous().view(-1, output.size(-1)),
-            #           predict_target, self.path_dict)
+            # print(acc_char, acc_field)
+            translate(output.contiguous().view(-1, output.size(-1)),
+                      predict_target, self.path_dict)
 
             total_loss += loss.item()
             total_acc_char += acc_char
@@ -110,47 +111,47 @@ class LSTMTrainer(TrainerBase):
 
         return log
 
-    def _eval_one_epoch(self):
-        """
-        Validating model with teacher forcing
-        """
-        total_loss = 0
-        total_acc_char = 0
-        total_acc_field = 0
-
-        n_iter = len(self.valid_data_loader)
-        valid_pbar = tqdm.tqdm(enumerate(self.valid_data_loader), total=n_iter)
-        with torch.no_grad():
-            for batch_idx, (data, target) in valid_pbar:
-                data = data.to(self.device)
-                index_target = target.to(self.device)
-                # The words we feed to force
-                input_target = index_target[:, :-1]
-                # The words we want model try to predict
-                predict_target = (index_target[:, 1:].contiguous().view(-1).
-                                  long())
-                # Output
-                output = self.model(data, input_target)
-                output = output.transpose(0, 1)
-                # Cross entropy loss
-                loss = F.cross_entropy(output.contiguous().view(-1, output.size(-1)),
-                                       predict_target.long())
-                # Metrics
-                acc_char = accuracy_char_2(output, index_target[:, 1:].long())
-                acc_field = accuracy_word(output, index_target[:, 1:].long())
-
-                total_loss += loss.item()
-                total_acc_char += acc_char
-                total_acc_field += acc_field
-
-            total_loss /= len(self.valid_data_loader)
-            total_acc_char /= len(self.valid_data_loader)
-            total_acc_field /= len(self.valid_data_loader)
-
-            valid_log = {'loss': total_loss,
-                         'acc_char': total_acc_char,
-                         'acc_field': total_acc_field}
-        return valid_log
+    # def _eval_one_epoch(self):
+    #     """
+    #     Validating model with teacher forcing
+    #     """
+    #     total_loss = 0
+    #     total_acc_char = 0
+    #     total_acc_field = 0
+    #
+    #     n_iter = len(self.valid_data_loader)
+    #     valid_pbar = tqdm.tqdm(enumerate(self.valid_data_loader), total=n_iter)
+    #     with torch.no_grad():
+    #         for batch_idx, (data, target) in valid_pbar:
+    #             data = data.to(self.device)
+    #             index_target = target.to(self.device)
+    #             # The words we feed to force
+    #             input_target = index_target[:, :-1]
+    #             # The words we want model try to predict
+    #             predict_target = (index_target[:, 1:].contiguous().view(-1).
+    #                               long())
+    #             # Output
+    #             output = self.model(data, input_target)
+    #             output = output.transpose(0, 1)
+    #             # Cross entropy loss
+    #             loss = F.cross_entropy(output.contiguous().view(-1, output.size(-1)),
+    #                                    predict_target.long())
+    #             # Metrics
+    #             acc_char = accuracy_char_2(output, index_target[:, 1:].long())
+    #             acc_field = accuracy_word(output, index_target[:, 1:].long())
+    #
+    #             total_loss += loss.item()
+    #             total_acc_char += acc_char
+    #             total_acc_field += acc_field
+    #
+    #         total_loss /= len(self.valid_data_loader)
+    #         total_acc_char /= len(self.valid_data_loader)
+    #         total_acc_field /= len(self.valid_data_loader)
+    #
+    #         valid_log = {'loss': total_loss,
+    #                      'acc_char': total_acc_char,
+    #                      'acc_field': total_acc_field}
+    #     return valid_log
 
     def _eval_one_epoch_greedy(self):
         """
@@ -176,10 +177,10 @@ class LSTMTrainer(TrainerBase):
                 output_seq = torch.ones(self.batch_size, 1, self.trg_vocab).type_as(index_target)
                 for i in range(self.max_len + 1):
                     # Output of Decoder
-                    output, _ = self.model.lstm.decoder(
-                                                        input_target, hidden_state,
-                                                        hidden_cell, context,
-                                                        context.size(1))
+                    output, (hidden_state, hidden_cell) = self.model.lstm.decoder(
+                                                            input_target, hidden_state,
+                                                            hidden_cell, context,
+                                                            context.size(1))
                     output = output.transpose(0, 1)
                     # Probability of output
                     prob = F.log_softmax(output, dim=-1)

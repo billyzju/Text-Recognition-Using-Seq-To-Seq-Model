@@ -70,10 +70,10 @@ max_len = model_config["max_len"]
 model = LSTMModel(input_dim, enc_hidden_dim, enc_bidirectional,
                   dec_hidden_dim, dec_bidirectional, num_layer,
                   trg_vocab)
-# Init Xavier
-for p in model.parameters():
-    if p.dim() > 1:
-        nn.init.xavier_uniform_(p)
+# # Init Xavier
+# for p in model.parameters():
+#     if p.dim() > 1:
+#         nn.init.xavier_uniform_(p)
 
 # Define optimizer
 optimizer = torch.optim.Adam(model.parameters(),
