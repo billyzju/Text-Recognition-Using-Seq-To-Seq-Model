@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="722f96ac-7346-4d2e-8a3d-17a6b20a9b52" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/base/trainer_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/base/trainer_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config_lstm.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config_lstm.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data_loaders/iam_data_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_loaders/iam_data_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ocr_models/backbones/vgg16.py" beforeDir="false" afterPath="$PROJECT_DIR$/ocr_models/backbones/vgg16.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ocr_models/language_models/lstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/ocr_models/language_models/lstm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train_lstm.py" beforeDir="false" afterPath="$PROJECT_DIR$/train_lstm.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/trainers/lstm_trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainers/lstm_trainer.py" afterDir="false" />
     </list>
@@ -15,27 +18,65 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-7">
               <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+=======
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ocr_models/language_models/lstm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-917">
+              <caret line="85" column="36" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+              <folding>
+                <element signature="e#177#189#0" expanded="true" />
+              </folding>
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/ocr_models/backbones/onmt_cnn.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-7">
               <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+=======
+        <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="364">
+              <caret line="97" column="43" selection-start-line="97" selection-start-column="43" selection-end-line="97" selection-end-column="43" />
+=======
+            <state relative-caret-position="-1332">
+              <caret line="91" column="38" selection-start-line="91" selection-start-column="38" selection-end-line="91" selection-end-column="38" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
               <folding>
-                <element signature="e#177#189#0" expanded="true" />
+                <element signature="e#177#187#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ocr_models/backbones/vgg16.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="130">
+              <caret line="47" column="19" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
+=======
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trainers/lstm_trainer.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -51,29 +92,57 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/data_processing.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state>
               <caret line="46" column="7" selection-start-line="46" selection-start-column="7" selection-end-line="46" selection-end-column="7" />
+=======
+            <state relative-caret-position="480">
+              <caret line="27" selection-start-line="27" selection-end-line="27" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ocr_models/lstm_model.py">
+        <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-7">
               <caret line="22" selection-start-line="22" selection-end-line="22" selection-end-column="33" />
+=======
+<<<<<<< HEAD
+            <state relative-caret-position="79">
+              <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+=======
+            <state relative-caret-position="319">
+              <caret line="23" column="66" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
               <folding>
                 <element signature="e#177#189#0" expanded="true" />
               </folding>
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ocr_models/language_models/lstm.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
               <caret line="20" column="56" selection-start-line="20" selection-start-column="56" selection-end-line="20" selection-end-column="56" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/trainers/lstm_trainer.py">
+          <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="340">
+              <caret line="83" column="43" lean-forward="true" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="43" />
+=======
+            <state relative-caret-position="229">
+              <caret line="144" column="48" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
               <folding>
                 <element signature="e#177#189#0" expanded="true" />
               </folding>
@@ -84,8 +153,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train_lstm.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-7">
               <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
+=======
+            <state relative-caret-position="419">
+              <caret line="85" selection-start-line="85" selection-end-line="85" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
               <folding>
                 <element signature="e#177#189#0" expanded="true" />
               </folding>
@@ -107,6 +182,7 @@
       <find>\</find>
       <find>self.batch_size</find>
       <find>batch_idx</find>
+      <find>print</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -122,15 +198,34 @@
         <option value="$PROJECT_DIR$/preprocessing_data/eng/images_train.txt" />
         <option value="$PROJECT_DIR$/preprocessing_data/eng/images_test.txt" />
         <option value="$PROJECT_DIR$/utils/data_processing.py" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/ocr_models/lstm_model.py" />
+=======
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
         <option value="$PROJECT_DIR$/base/trainer_base.py" />
         <option value="$PROJECT_DIR$/data_loaders/iam_data_loader.py" />
         <option value="$PROJECT_DIR$/ocr_models/backbones/onmt_cnn.py" />
         <option value="$PROJECT_DIR$/ocr_models/lstm_model.py" />
         <option value="$PROJECT_DIR$/train_lstm.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/ocr_models/language_models/lstm.py" />
         <option value="$PROJECT_DIR$/ocr_models/backbones/vgg16.py" />
         <option value="$PROJECT_DIR$/config/config_lstm.json" />
         <option value="$PROJECT_DIR$/trainers/lstm_trainer.py" />
+=======
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/ocr_models/language_models/lstm.py" />
+=======
+        <option value="$PROJECT_DIR$/data_loaders/iam_data_loader.py" />
+        <option value="$PROJECT_DIR$/ocr_models/backbones/vgg16.py" />
+        <option value="$PROJECT_DIR$/ocr_models/language_models/lstm.py" />
+        <option value="$PROJECT_DIR$/trainers/lstm_trainer.py" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+        <option value="$PROJECT_DIR$/config/config_lstm.json" />
+        <option value="$PROJECT_DIR$/trainers/lstm_trainer.py" />
+        <option value="$PROJECT_DIR$/data_loaders/iam_data_loader.py" />
+        <option value="$PROJECT_DIR$/ocr_models/backbones/vgg16.py" />
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
       </list>
     </option>
   </component>
@@ -155,7 +250,14 @@
             <path>
               <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
               <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="config" type="462c0819:PsiDirectoryNode" />
+=======
+<<<<<<< HEAD
+              <item name="ocr_models" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="data_loaders" type="462c0819:PsiDirectoryNode" />
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
             </path>
             <path>
               <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
@@ -166,7 +268,12 @@
               <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="b2602c69:ProjectViewProjectNode" />
               <item name="Text-Recognition-Using-Seq-To-Seq-Model" type="462c0819:PsiDirectoryNode" />
               <item name="ocr_models" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="language_models" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="backbones" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
             </path>
           </expand>
           <select />
@@ -236,13 +343,26 @@
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
+<<<<<<< HEAD
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12483487" />
+=======
+<<<<<<< HEAD
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12493151" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12483487" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
+<<<<<<< HEAD
       <window_info anchor="bottom" id="Run" order="2" weight="0.3281471" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39886847" />
+=======
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32925472" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39933258" />
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -254,6 +374,17 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/train_transformer.py">
@@ -285,13 +416,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287675">
           <caret line="11531" column="19" selection-start-line="11531" selection-start-column="19" selection-end-line="11531" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/preprocessing_data/eng/images_valid.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="552" column="37" lean-forward="true" selection-start-line="552" selection-start-column="37" selection-end-line="552" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -332,18 +456,83 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
+=======
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/preprocessing_data/eng/images_valid.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="51" column="56" lean-forward="true" selection-start-line="51" selection-start-column="56" selection-end-line="51" selection-end-column="56" />
+        <state relative-caret-position="716">
+          <caret line="11532" lean-forward="true" selection-start-line="11532" selection-end-line="11532" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train_lstm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+=======
+    <entry file="file://$PROJECT_DIR$/utils/data_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ocr_models/lstm_model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="23" column="66" selection-start-line="23" selection-start-column="66" selection-end-line="23" selection-end-column="66" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
           <folding>
-            <element signature="e#177#187#0" expanded="true" />
+            <element signature="e#177#189#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/base/trainer_base.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="788">
+          <caret line="124" column="72" selection-start-line="124" selection-start-column="72" selection-end-line="124" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/data_processing.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ocr_models/lstm_model.py">
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="638">
+          <caret line="30" column="14" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="14" />
+=======
+        <state relative-caret-position="-18">
+          <caret line="51" column="56" lean-forward="true" selection-start-line="51" selection-start-column="56" selection-end-line="51" selection-end-column="56" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+          <folding>
+            <element signature="e#177#189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="79">
+          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/trainers/lstm_trainer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="83" column="43" lean-forward="true" selection-start-line="83" selection-start-column="28" selection-end-line="83" selection-end-column="43" />
+=======
         <state relative-caret-position="479">
           <caret line="124" column="72" selection-start-line="124" selection-start-column="72" selection-end-line="124" selection-end-column="72" />
         </state>
@@ -385,8 +574,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train_lstm.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="-7">
           <caret line="71" column="28" selection-start-line="71" selection-start-column="28" selection-end-line="71" selection-end-column="28" />
+=======
+        <state relative-caret-position="419">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
           <folding>
             <element signature="e#177#189#0" expanded="true" />
           </folding>
@@ -395,14 +590,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ocr_models/backbones/vgg16.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="139">
           <caret line="31" column="37" lean-forward="true" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
+=======
+<<<<<<< HEAD
+        <state relative-caret-position="-917">
+          <caret line="85" column="36" selection-start-line="85" selection-start-column="36" selection-end-line="85" selection-end-column="36" />
+=======
+        <state relative-caret-position="229">
+          <caret line="144" column="48" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
           <folding>
             <element signature="e#177#189#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/config/config_lstm.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -414,12 +620,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-213">
           <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+=======
+    <entry file="file://$PROJECT_DIR$/data_loaders/iam_data_loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="364">
+          <caret line="97" column="43" selection-start-line="97" selection-start-column="43" selection-end-line="97" selection-end-column="43" />
+=======
+        <state relative-caret-position="-1332">
+          <caret line="91" column="38" selection-start-line="91" selection-start-column="38" selection-end-line="91" selection-end-column="38" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
           <folding>
-            <element signature="e#177#189#0" expanded="true" />
+            <element signature="e#177#187#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/ocr_models/language_models/lstm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -427,6 +645,17 @@
           <folding>
             <element signature="e#177#189#0" expanded="true" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/ocr_models/backbones/vgg16.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="130">
+          <caret line="47" column="19" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
+=======
+        <state relative-caret-position="360">
+          <caret line="36" column="24" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
+>>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
+>>>>>>> b7339d6850e7d320439f924f2e87e00b3bc9a439
         </state>
       </provider>
     </entry>

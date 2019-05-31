@@ -48,6 +48,7 @@ class LSTMTrainer(TrainerBase):
         if valid_data_loader is not None:
             print("Load data for valid ...")
             self.valid_data_loader = valid_data_loader.loader()
+            print(len(self.valid_data_loader))
 
     def _train_one_epoch(self, epoch):
         # Train command from TrainerBase class
@@ -61,6 +62,7 @@ class LSTMTrainer(TrainerBase):
         train_pbar = tqdm.tqdm(enumerate(self.train_data_loader), total=n_iter)
         for batch_idx, (data, target) in train_pbar:
             data = data.to(self.device)
+
             # image = data[0].cpu()
             # import torchvision.transforms as transforms
             # import matplotlib.pyplot as plt
@@ -68,6 +70,7 @@ class LSTMTrainer(TrainerBase):
             # image = show(image)
             # plt.imshow(image)
             # plt.show()
+
             index_target = target.to(self.device)
             # The words we feed to force
             input_target = index_target[:, :-1]

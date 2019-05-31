@@ -46,7 +46,7 @@ def make_layers(cfg, batch_norm=False):
     """ Make layers for all VGG version from config
     """
     layers = []
-    in_channels = 1
+    in_channels = 3
     for v in cfg:
         if v == 'M':
             # Add MaxPool2x layer if config have 'M'
