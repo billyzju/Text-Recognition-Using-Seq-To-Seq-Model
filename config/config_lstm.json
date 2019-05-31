@@ -48,7 +48,6 @@
         "num_layer":1,
         "bidirectional":false,
         "enc_hidden_dim": 256,
-        "num_layer":1,
         "enc_bidirectional": true,
         "dec_hidden_dim": 512,
         "dec_bidirectional": false,

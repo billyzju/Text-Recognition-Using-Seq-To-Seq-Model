@@ -63,13 +63,13 @@ class LSTMTrainer(TrainerBase):
         for batch_idx, (data, target) in train_pbar:
             data = data.to(self.device)
 
-            # image = data[0].cpu()
-            # import torchvision.transforms as transforms
-            # import matplotlib.pyplot as plt
-            # show = transforms.ToPILImage()
-            # image = show(image)
-            # plt.imshow(image)
-            # plt.show()
+            image = data[0].cpu()
+            import torchvision.transforms as transforms
+            import matplotlib.pyplot as plt
+            show = transforms.ToPILImage()
+            image = show(image)
+            plt.imshow(image)
+            plt.show()
 
             index_target = target.to(self.device)
             # The words we feed to force
@@ -92,8 +92,8 @@ class LSTMTrainer(TrainerBase):
             acc_char = accuracy_char_2(output, index_target[:, 1:].long())
             acc_field = accuracy_word(output, index_target[:, 1:].long())
             # print(acc_char, acc_field)
-            translate(output.contiguous().view(-1, output.size(-1)),
-                      predict_target, self.path_dict)
+            # translate(output.contiguous().view(-1, output.size(-1)),
+            #           predict_target, self.path_dict)
 
             total_loss += loss.item()
             total_acc_char += acc_char
