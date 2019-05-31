@@ -21,11 +21,13 @@ class LSTMEncoder(nn.Module):
                             bidirectional=bidirectional)
 
     def forward(self, src):
-        # Input size of LSTM  = [seq_length, batch_size, embed_length]
-        # Output of LSTM contains output with size
-        # (seq_len, batch, num_directions * hidden_size) and hidden state
-        # at t = seq_length
-
+        """
+        :param src: Output of CNN encoder (batch_size, seq_len, chanel=emb_dim)
+        :return:
+        output: ()
+        hidden_state: ()
+        hidden_cell: ()
+        """
         all_outputs = []
         for row in range(src.size(2)):
             # Covert row size into [seq_length, batch_size, embed_length]
@@ -38,10 +40,6 @@ class LSTMEncoder(nn.Module):
 
 
 class GlobalAttention(nn.Module):
-    """
-    Global Attention as described in 'Effective Approaches to
-    Attention-based Neural Machine Translation'
-    """
     def __init__(self, dim):
         super(GlobalAttention, self).__init__()
         # Size of encoder and decoder hidden states may be different
@@ -54,8 +52,9 @@ class GlobalAttention(nn.Module):
 
     def score(self, h_t, h_s):
         """
-        h_t (FloatTensor): batch x tgt_len x dim, inputs
-        h_s (FloatTensor): batch x src_len x dim, context
+        :param h_t: (batch, tgt_len, dim)
+        :param h_s: (batch, src_len, dim)
+        :return: Attention score
         """
         tgt_batch, tgt_len, dim = h_t.size()
         # h_t^T W_a
@@ -67,35 +66,18 @@ class GlobalAttention(nn.Module):
         # (batch, t_len, d) x (batch, d, s_len) --> (batch, t_len, s_len)
         return torch.bmm(h_t, h_s)
 
-    # def sequence_mask(self, lengths, max_len=None):
-    #     """
-    #     Creates a boolean mask from sequence lengths.
-    #     """
-    #     batch_size = lengths.numel()
-    #     max_len = max_len or lengths.max()
-    #     return (torch.arange(0, max_len)
-    #             .type_as(lengths)
-    #             .repeat(batch_size, 1)
-    #             .lt(lengths.unsqueeze(1)))
-
     def forward(self, inputs, context, context_lengths):
         """
-        input (FloatTensor): batch x tgt_len x dim: decoder's rnn's output
-        context (FloatTensor): batch x src_len x dim: src hidden states
-        context_lengths (LongTensor): the source context lengths
+        :param inputs: (batch, tgt_len, dim)
+        :param context: (batch, src_len, dim)
+        :param context_lengths: The source context length
+        :return:
         """
         # (batch, tgt_len, src_len)
         align = self.score(inputs, context)
         batch, tgt_len, src_len = align.size()
-        # mask = self.sequence_mask(context_lengths)
-        # # (batch, 1, src_len)
-        # mask = mask.unsqueeze(1)  # Make it broadcastable.
-        # if next(self.parameters()).is_cuda:
-        #     mask = mask.cuda()
-        # align.data.masked_fill_(1 - mask, -float('inf')) # fill <pad> with -inf
         align_vectors = self.softmax(align.view(batch * tgt_len, src_len))
         align_vectors = align_vectors.view(batch, tgt_len, src_len)
-
         # (batch, tgt_len, src_len) * (batch, src_len, enc_hidden)
         # -> (batch, tgt_len, enc_hidden)
         c = torch.bmm(align_vectors, context)
