@@ -86,7 +86,7 @@ class VGG(nn.Module):
         super(VGG, self).__init__()
 
         self.features = features
-        # self.avgpool = nn.AdaptiveAvgPool2d((1, 30))
+        self.avgpool = nn.AdaptiveAvgPool2d((1, 30))
 
         # # AdaptiveAvgPool will return fixed size for any input size
         # self.avgpool = nn.AdaptiveAvgPool2d((7, 7))
@@ -105,7 +105,7 @@ class VGG(nn.Module):
 
     def forward(self, x):
         x = self.features(x)
-        # x = self.avgpool(x)
+        x = self.avgpool(x)
         # x = x.view(x.size(0), -1, x.size(1))
 
         # x = self.avgpool(x)

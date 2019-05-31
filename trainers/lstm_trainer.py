@@ -91,8 +91,8 @@ class LSTMTrainer(TrainerBase):
             # Metrics
             acc_char = accuracy_char_2(output, index_target[:, 1:].long())
             acc_field = accuracy_word(output, index_target[:, 1:].long())
-            translate(output.contiguous().view(-1, output.size(-1)),
-                      predict_target, self.path_dict)
+            # translate(output.contiguous().view(-1, output.size(-1)),
+            #           predict_target, self.path_dict)
 
             total_loss += loss.item()
             total_acc_char += acc_char
