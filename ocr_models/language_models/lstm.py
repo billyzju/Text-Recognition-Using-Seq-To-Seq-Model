@@ -21,13 +21,6 @@ class LSTMEncoder(nn.Module):
                             bidirectional=bidirectional)
 
     def forward(self, src):
-        """
-        :param src: Output of CNN encoder (batch_size, seq_len, chanel=emb_dim)
-        :return:
-        output: ()
-        hidden_state: ()
-        hidden_cell: ()
-        """
         all_outputs = []
         for row in range(src.size(2)):
             # Covert row size into [seq_length, batch_size, embed_length]
@@ -36,6 +29,7 @@ class LSTMEncoder(nn.Module):
             all_outputs.append(output)
 
         output = torch.cat(all_outputs, 0)
+
         return output, hidden_state, hidden_cell
 
 
@@ -107,8 +101,6 @@ class LSTMDecoder(nn.Module):
         # Define LSTM layer
         self.lstm = nn.LSTM(input_dim, hidden_dim, num_layer,
                             bidirectional=bidirectional)
-        if bidirectional:
-            hidden_dim = 2 * hidden_dim
         self.linear_out = nn.Linear(hidden_dim, vocab_size)
         self.attn = GlobalAttention(hidden_dim)
         self.drop = nn.Dropout(dropout)
@@ -124,9 +116,9 @@ class LSTMDecoder(nn.Module):
         emb = self.drop(emb)
         emb = emb.transpose(0, 1)
         decoder_unpacked, decoder_hidden = self.lstm(
-                                            emb)
-                                            # (init_hidden_state,
-                                            #  init_hidden_cell))
+                                            emb,
+                                            (init_hidden_state,
+                                             init_hidden_cell))
         attn_outputs, attn_scores = self.attn(
             # (len, batch, d) -> (batch, len, d)
             decoder_unpacked.transpose(0, 1).contiguous(),
@@ -151,7 +143,16 @@ class LSTM(nn.Module):
 
     def forward(self, src, trg):
         context, hidden_state, hidden_cell = self.encoder(src)
+        hidden_state, hidden_cell = self.init_decoder(hidden_state, hidden_cell)
         output, _ = self.decoder(trg, hidden_state, hidden_cell, context,
                                  context.size(1))
 
         return output
+
+    def init_decoder(self, enc_hidden_state, enc_hidden_cell):
+        direc, batch_size, enc_dim = enc_hidden_state.size()
+        enc_hidden_state = enc_hidden_state.contiguous().view(1, batch_size, -1)
+        enc_hidden_cell = enc_hidden_cell.contiguous().view(1, batch_size, -1)
+
+        return enc_hidden_state, enc_hidden_cell
+

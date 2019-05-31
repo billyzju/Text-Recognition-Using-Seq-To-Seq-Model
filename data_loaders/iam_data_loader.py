@@ -69,7 +69,6 @@ class IAMDataset(Dataset):
         image = image / 255
         # Convert to tensor
         image = torch.tensor(image, dtype=torch.float32)
-        print(image.size())
         label = torch.tensor(label, dtype=torch.float32)
 
         return image, label
@@ -101,7 +100,7 @@ class OCR_collate:
         return images, labels
 
 
-def pad_batch_image_tensor(tensor_images, enable_augment=False):
+def pad_batch_image_tensor(tensor_images, enable_augment=True):
     """
     :param tensor_images: list(h, w, c)
     :return:
@@ -110,7 +109,7 @@ def pad_batch_image_tensor(tensor_images, enable_augment=False):
     c = tensor_images[0].size(2)
     h = max([e.size(0) for e in tensor_images])
     w = max([e.size(1) for e in tensor_images])
-    batch_images = torch.zeros(len(tensor_images), h, w, c).fill_(0)
+    batch_images = torch.zeros(len(tensor_images), h, w, c).fill_(1)
     for i, image in enumerate(tensor_images):
         started_h = max(0, random.randint(0, h - image.size(0)))
         started_w = max(0, random.randint(0, w - image.size(1)))

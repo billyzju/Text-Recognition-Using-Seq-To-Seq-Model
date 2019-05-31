@@ -67,18 +67,13 @@ dec_bidirectional = model_config["dec_bidirectional"]
 num_layer = model_config["num_layer"]
 max_len = model_config["max_len"]
 
-<<<<<<< HEAD
-model = LSTMModel(input_dim, hidden_dim, num_layer,
-                  bidirectional=bidirectional, vocab_size=trg_vocab)
-=======
 model = LSTMModel(input_dim, enc_hidden_dim, enc_bidirectional,
                   dec_hidden_dim, dec_bidirectional, num_layer,
                   trg_vocab)
->>>>>>> 499639cef6983a7cb677b6e79c7cc19d8fb52634
-# Init Xavier
-for p in model.parameters():
-    if p.dim() > 1:
-        nn.init.xavier_uniform_(p)
+# # Init Xavier
+# for p in model.parameters():
+#     if p.dim() > 1:
+#         nn.init.xavier_uniform_(p)
 
 # Define optimizer
 optimizer = torch.optim.Adam(model.parameters(),

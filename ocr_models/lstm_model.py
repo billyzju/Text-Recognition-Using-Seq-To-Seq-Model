@@ -7,6 +7,7 @@ import torchvision
 from torch.autograd import Variable
 from ocr_models.language_models.lstm import LSTM
 from ocr_models.backbones.vgg16 import vgg16
+from ocr_models.backbones.onmt_cnn import ONMT
 
 
 # --------------------------------------------------------------------------------
@@ -19,6 +20,7 @@ class LSTMModel(nn.Module):
         super(LSTMModel, self).__init__()
 
         self.cnn_model = vgg16()
+        # self.cnn_model = ONMT()
         self.lstm = LSTM(input_dim, enc_hidden_dim,
                          enc_bidirectional, dec_hidden_dim,
                          dec_bidirectional, num_layer, vocab_size)
